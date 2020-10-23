@@ -16,13 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
   carouselHeight: {
     [theme.breakpoints.only("xs")]: {
-      height: "220px",
+      height: "200px",
     },
     [theme.breakpoints.only("sm")]: {
-      height: "340px",
+      height: "300px",
     },
     [theme.breakpoints.up("md")]: {
-      height: "440px",
+      height: "400px",
     },
   },
   flexTitle: {
@@ -33,12 +33,14 @@ const useStyles = makeStyles((theme) => ({
   primaryTitle: {
     flexBasis: "55%",
     fontWeight: 600,
-    textShadow: `0 0 4px ${theme.palette.secondary.main}`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=1)`,
+    textShadow: `0 0 1px black`,
+    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.5)`,
   },
   secondaryTitle: {
     flexBasis: "45%",
     fontWeight: 600,
+    textShadow: `0 0 1px black`,
+    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.5)`,
   },
   sliderContainer: {
     position: "relative",
@@ -124,6 +126,14 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up("md")]: {
       maxWidth: "270px",
+    },
+  },
+  bookBtn: {
+    backgroundColor: theme.palette.primary.dark,
+    color: "#FFFFFF",
+    borderRadius: "2em",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.dark,
     },
   },
 }));
@@ -243,7 +253,7 @@ function SliderWithImgs({ type, data, classes }) {
             </Typography>
           </div>
           <div className={classes.labelAction}>
-            <Button>BOOK</Button>
+            <Button className={classes.bookBtn}>BOOK</Button>
           </div>
         </div>
       </div>

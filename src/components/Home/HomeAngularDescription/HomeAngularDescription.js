@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
     height: "55%",
     margin: "10px 20% 10px 80px",
-    clipPath: `polygon(0px 0px, 75% 0px, 56% 85%, 0px 85%)`,
+    clipPath: `polygon(0px 0px, 75% 0px, 55% 85%, 0px 85%)`,
     padding: "20px 26% 10px 20px",
     fontSize: "18px",
     [theme.breakpoints.only("md")]: {
@@ -84,7 +84,7 @@ function HomeAngularDescription() {
             exquisite banquets and cruise ships.
             <h5
               style={{
-                marginTop: "-4px",
+                marginTop: "5px",
                 textAlign: "end",
                 paddingRight: "15%",
               }}
@@ -93,6 +93,12 @@ function HomeAngularDescription() {
             </h5>
           </div>
         </div>
+        <Typography
+          variant='h2'
+          style={{ position: "absolute", bottom: "5px", paddingLeft: "90px" }}
+        >
+          Venuefy Services
+        </Typography>
       </div>
     </>
   );

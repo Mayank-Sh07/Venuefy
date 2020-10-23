@@ -35,6 +35,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   tag: {
+    textShadow: `0 0 4px black`,
+    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=1)`,
     fontWeight: "600",
     color: "#FFFFFF",
     [theme.breakpoints.only("xs")]: {
