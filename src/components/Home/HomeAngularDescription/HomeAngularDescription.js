@@ -1,5 +1,12 @@
 import React from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import {
+  makeStyles,
+  Typography,
+  Hidden,
+  Card,
+  CardMedia,
+  CardContent,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   descriptionContainer: {
@@ -7,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     height: "600px",
     border: "1px solid black",
     borderBottom: "none",
-    [theme.breakpoints.only("sm")]: {
+    [theme.breakpoints.down("sm")]: {
       height: "450px",
     },
     [theme.breakpoints.only("md")]: {
@@ -38,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     clipPath: `polygon(0px 0px, 75% 0px, 50% 85%, 0px 85%)`,
     backgroundColor: theme.palette.secondary.light,
-    border: "1px solid black",
   },
   leftHeading: {
     padding: "20px 20px 20px 90px",
@@ -60,6 +66,29 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "40px",
     },
   },
+
+  mobileBG: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: theme.palette.primary.main,
+    overflow: "visible",
+    paddingTop: "30px",
+  },
+  rounded: {
+    borderRadius: "2.5em",
+  },
+  header: {
+    padding: "25px 0px",
+  },
+  sectionHead: {
+    position: "absolute",
+    bottom: "0px",
+    paddingLeft: "80px",
+    width: "90%",
+    backgroundColor: theme.palette.secondary.main,
+    marginBottom: "-2px",
+    clipPath: `polygon(0 0, 55% 0, 77% 100%, 0% 100%)`,
+  },
 }));
 
 function HomeAngularDescription() {
@@ -67,38 +96,67 @@ function HomeAngularDescription() {
   return (
     <>
       <div className={classes.descriptionContainer}>
-        <div className={classes.rightImageContainer}>
-          <img
-            src={"imgs/banner2.jpg"}
-            alt='Banner'
-            className={classes.imageClass}
-          />
-        </div>
-        <div className={classes.leftTextContainer}>
-          <Typography variant='h2' className={classes.leftHeading}>
-            Who are we?
-          </Typography>
-          <div className={classes.leftText}>
-            We provide all Venue and Non-Venue services related to a plethora of
-            events, from your choice of make-up artists and florists to
-            exquisite banquets and cruise ships.
-            <h5
-              style={{
-                marginTop: "5px",
-                textAlign: "end",
-                paddingRight: "15%",
-              }}
-            >
-              - Venuefy
-            </h5>
+        <Hidden xsDown>
+          <div className={classes.rightImageContainer}>
+            <img
+              src={"imgs/banner2.jpg"}
+              alt='Banner'
+              className={classes.imageClass}
+            />
           </div>
-        </div>
-        <Typography
-          variant='h2'
-          style={{ position: "absolute", bottom: "5px", paddingLeft: "90px" }}
-        >
-          Venuefy Services
-        </Typography>
+          <div className={classes.leftTextContainer}>
+            <Typography variant='h2' className={classes.leftHeading}>
+              Who are we?
+            </Typography>
+            <div className={classes.leftText}>
+              We provide all Venue and Non-Venue services related to a plethora
+              of events, from your choice of make-up artists and florists to
+              exquisite banquets and cruise ships.
+              <h5
+                style={{
+                  marginTop: "5px",
+                  textAlign: "end",
+                  paddingRight: "15%",
+                }}
+              >
+                - Venuefy
+              </h5>
+            </div>
+          </div>
+          <Typography variant='h2' className={classes.sectionHead}>
+            Venuefy Services
+          </Typography>
+        </Hidden>
+        <Hidden smUp>
+          <Card className={classes.mobileBG} square>
+            <CardContent>
+              <Typography
+                variant='h2'
+                align='center'
+                className={classes.header}
+              >
+                Who are we?
+              </Typography>
+              <Typography paragraph align='center'>
+                We provide all Venue and Non-Venue services related to a
+                plethora of events, from your choice of make-up artists and
+                florists to exquisite banquets and cruise ships.
+              </Typography>
+            </CardContent>
+            <CardMedia
+              component='img'
+              alt='null image'
+              image={"/imgs/banner2.jpg"}
+              height='250px'
+              className={classes.rounded}
+              style={{
+                margin: "8px auto 0px",
+                position: "relative",
+                width: "80%",
+              }}
+            />
+          </Card>
+        </Hidden>
       </div>
     </>
   );

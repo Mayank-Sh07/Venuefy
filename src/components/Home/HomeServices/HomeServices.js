@@ -9,9 +9,14 @@ import {
   CardMedia,
   CardContent,
   CardActions,
+  Hidden,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  serviceContainer: {
+    padding: "35px",
+    backgroundColor: theme.palette.secondary.main,
+  },
   rounded: {
     borderRadius: "2.5em",
   },
@@ -21,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "2em",
     padding: "8px 12px",
     margin: "auto",
+  },
+  sectionHead: {
+    padding: "70px 0px 0px",
   },
 }));
 
@@ -36,8 +44,19 @@ const serviceData = [
 function HomeServices() {
   const classes = useStyles();
   return (
-    <Container maxWidth={null} style={{ padding: "40px" }}>
+    <Container maxWidth={null} className={classes.serviceContainer}>
       <Grid container alignItems='center' justify='space-evenly' spacing={6}>
+        <Hidden smUp>
+          <Grid item xs={12} sm={0} style={{ paddingBottom: "0px" }}>
+            <Typography
+              variant='h3'
+              align='center'
+              className={classes.sectionHead}
+            >
+              Venuefy Services
+            </Typography>
+          </Grid>
+        </Hidden>
         {serviceData.map((service) => (
           <Grid item xs={12} sm={4}>
             <Card className={classes.rounded}>

@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   footerContainer: {
     backgroundColor: theme.palette.primary.main,
     padding: "40px",
+    [theme.breakpoints.only("xs")]: {
+      padding: "10px",
+    },
   },
 }));
 
@@ -81,7 +84,7 @@ function HomeServices() {
           </Grid>
         </Grid>
         <Grid item container justify='space-between'>
-          <Grid item xs={12} sm={5}>
+          <Grid item xs={12} sm={5} align='center'>
             <img
               src='https://static.wixstatic.com/media/0cbda3_6d68eb4cafc241d08c837a2bfd5021b4~mv2.jpg/v1/fill/w_364,h_89,al_c,q_80,usm_0.66_1.00_0.01/0001%2520(3)_edited.webp'
               alt='WDI Events'

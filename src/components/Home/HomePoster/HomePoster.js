@@ -39,18 +39,18 @@ const useStyles = makeStyles((theme) => ({
       height: "500px",
     },
   },
-  title: {
-    padding: "20px 0px",
-    [theme.breakpoints.only("sm")]: {
-      padding: "10px",
-    },
-  },
-  subTitle: {
-    padding: "15px 60px",
-    [theme.breakpoints.only("sm")]: {
-      padding: "5px 40px",
-    },
-  },
+  // title: {
+  //   padding: "20px 0px",
+  //   [theme.breakpoints.down("sm")]: {
+  //     padding: "10px",
+  //   },
+  // },
+  // subTitle: {
+  //   padding: "15px 60px",
+  //   [theme.breakpoints.down("sm")]: {
+  //     padding: "5px 40px",
+  //   },
+  // },
   exploreBtn: {
     margin: "15px",
     backgroundColor: theme.palette.primary.dark,
@@ -76,7 +76,7 @@ function HomePoster() {
   return (
     <>
       <Container className={classes.posterContainer} maxWidth={null}>
-        <Grid container justify='space-around' alignItems='center'>
+        <Grid container justify='center' alignItems='center'>
           <Grid item xs={0} sm={4} />
           <Grid item xs={0} sm={3} />
           <Grid item xs={12} sm={5}>
@@ -84,32 +84,32 @@ function HomePoster() {
               <Grid
                 container
                 direction='column'
-                justify='space-evenly'
+                justify='center'
                 alignItems='center'
                 className={classes.largeOnly}
               >
                 <Grid item>
-                  <Typography variant='h2' className={classes.title}>
+                  <Typography variant='h2' style={{ paddingTop: "50px" }}>
                     Book Now
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography
-                    variant='h4'
+                    variant='h5'
                     align='center'
-                    className={classes.subTitle}
+                    style={{ padding: "10px" }}
                   >
                     discounts on pre-booking
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant='h6'>Banquets</Typography>
+                  <Typography variant='subtitle1'>Banquets</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant='h6'>Resorts</Typography>
+                  <Typography variant='subtitle1'>Resorts</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant='h6'>Vendors</Typography>
+                  <Typography variant='subtitle1'>Vendors</Typography>
                 </Grid>
                 <Grid item>
                   <Button size='large' className={classes.exploreBtn}>
