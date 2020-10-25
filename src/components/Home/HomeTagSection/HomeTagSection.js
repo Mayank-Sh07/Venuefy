@@ -48,10 +48,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "2em",
     backgroundColor: theme.palette.primary.main,
     width: "80%",
-    maxWidth: theme.breakpoints.width("md"),
+    maxWidth: "768px",
     margin: "100px auto 0px",
     [theme.breakpoints.only("xs")]: {
-      width: "92%",
+      width: "90%",
     },
   },
   topBarGC: {
@@ -67,6 +67,12 @@ const useStyles = makeStyles((theme) => ({
     margin: "0px 14px",
     [theme.breakpoints.only("xs")]: {
       margin: "0px 4px",
+    },
+  },
+  tagIcon: {
+    marginleft: "2px",
+    [theme.breakpoints.only("xs")]: {
+      padding: "4px",
     },
   },
 }));
@@ -265,10 +271,10 @@ function HomeTagSection({ location }) {
                 />
               </Grid>
               <Grid item xs={3} className={classes.topBarGI}>
-                <IconButton style={{ marginleft: "2px" }}>
+                <IconButton className={classes.tagIcon}>
                   <Search />
                 </IconButton>
-                <IconButton style={{ marginleft: "2px" }}>
+                <IconButton className={classes.tagIcon}>
                   <MyLocation />
                 </IconButton>
               </Grid>

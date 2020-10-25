@@ -13,16 +13,19 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       top: "520px",
     },
+    [theme.breakpoints.only("xs")]: {
+      top: "130px",
+    },
   },
   carouselHeight: {
     [theme.breakpoints.only("xs")]: {
-      height: "200px",
+      height: "170px",
     },
     [theme.breakpoints.only("sm")]: {
-      height: "300px",
+      height: "260px",
     },
     [theme.breakpoints.up("md")]: {
-      height: "400px",
+      height: "300px",
     },
   },
   flexTitle: {
@@ -80,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sliderRight: {
     marginLeft: "40%",
+    transform: `translateX(1px)`,
   },
   imageClass: {
     objectFit: "contain",

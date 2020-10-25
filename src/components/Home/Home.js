@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import { Container, makeStyles, Hidden } from "@material-ui/core";
 import Geocode from "react-geocode";
 import HomeTagSection from "./HomeTagSection/HomeTagSection";
 import HomeAngularCarousel from "./HomeAngularCarousel/HomeAngularCarousel";
@@ -8,27 +8,27 @@ import HomePoster from "./HomePoster/HomePoster";
 import HomeServices from "./HomeServices/HomeServices";
 import HomeFeatures from "./HomeFeatures/HomeFeatures";
 // disabled location finder for dev setup
-// Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
+Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
 
 const useStyles = makeStyles((theme) => ({
   tagContainerBG: {
     backgroundColor: theme.palette.secondary.light,
     clipPath: `polygon(40% 0, 100% 95%, 100% 100%, 0 100%, 0 0)`,
-    height: "1300px",
+    height: "1200px",
     position: "relative",
     [theme.breakpoints.only("xs")]: {
-      height: "760px",
+      height: "380px",
     },
     [theme.breakpoints.only("sm")]: {
       height: "1000px",
     },
     [theme.breakpoints.only("md")]: {
-      height: "1200px",
+      height: "1100px",
     },
   },
   carouselContainerBG: {
     backgroundColor: theme.palette.secondary.light,
-    height: "200px",
+    height: "100px",
     position: "relative",
   },
 }));
@@ -76,7 +76,9 @@ function Home({ geoCoords }) {
         className={classes.tagContainerBG}
         maxWidth={false}
       ></Container>
-      <HomeTagSection location={location} />
+      <Hidden xsDown>
+        <HomeTagSection location={location} />
+      </Hidden>
       <Container
         disableGutters
         className={classes.carouselContainerBG}

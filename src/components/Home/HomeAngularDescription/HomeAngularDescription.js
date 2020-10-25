@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
     height: "55%",
     margin: "10px 20% 10px 80px",
-    clipPath: `polygon(0px 0px, 75% 0px, 55% 85%, 0px 85%)`,
+    clipPath: `polygon(0px 0px, 76% 0px, 54% 85%, 0px 85%)`,
     padding: "20px 26% 10px 20px",
     fontSize: "18px",
     [theme.breakpoints.only("md")]: {
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "30px",
   },
   rounded: {
-    borderRadius: "2.5em",
+    borderRadius: "1em",
   },
   header: {
     padding: "25px 0px",
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     width: "90%",
     backgroundColor: theme.palette.secondary.main,
     marginBottom: "-2px",
-    clipPath: `polygon(0 0, 55% 0, 77% 100%, 0% 100%)`,
+    clipPath: `polygon(0 0, 50% 0, 72% 100%, 0% 100%)`,
   },
 }));
 
@@ -123,9 +123,9 @@ function HomeAngularDescription() {
               </h5>
             </div>
           </div>
-          <Typography variant='h2' className={classes.sectionHead}>
+          {/* <Typography variant='h2' className={classes.sectionHead}>
             Venuefy Services
-          </Typography>
+          </Typography> */}
         </Hidden>
         <Hidden smUp>
           <Card className={classes.mobileBG} square>

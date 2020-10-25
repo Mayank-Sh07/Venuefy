@@ -39,18 +39,7 @@ const useStyles = makeStyles((theme) => ({
       height: "500px",
     },
   },
-  // title: {
-  //   padding: "20px 0px",
-  //   [theme.breakpoints.down("sm")]: {
-  //     padding: "10px",
-  //   },
-  // },
-  // subTitle: {
-  //   padding: "15px 60px",
-  //   [theme.breakpoints.down("sm")]: {
-  //     padding: "5px 40px",
-  //   },
-  // },
+
   exploreBtn: {
     margin: "15px",
     backgroundColor: theme.palette.primary.dark,

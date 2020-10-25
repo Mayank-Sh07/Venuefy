@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
     maxWidth: 400,
     color: "#FFFFFF",
+    padding: "10px",
   },
 });
 

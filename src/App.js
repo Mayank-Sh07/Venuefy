@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Navbar/Footer/Footer";
-import Home from "./components/Home/Home";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import {
+  Navbar,
+  Home,
+  Venues,
+  Testimonials,
+  Vendors,
+  AboutUs,
+  Blog,
+  Footer,
+} from "./components";
 import { usePosition } from "use-position";
 
 function App() {
@@ -16,9 +24,25 @@ function App() {
 
   return (
     <div className='App'>
-      <Navbar />
-      <Home geoCoords={geoCoords} />
-      <Footer />
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route exact path='/Venues' render={(props) => <Venues />} />
+          <Route
+            exact
+            path='/Testimonials'
+            render={(props) => <Testimonials />}
+          />
+          <Route exact path='/Vendors' render={(props) => <Vendors />} />
+          <Route exact path='/About' render={(props) => <AboutUs />} />
+          <Route exact path='/Blog' render={(props) => <Blog />} />
+          <Route
+            path='/'
+            render={(props) => <Home {...props} geoCoords={geoCoords} />}
+          />
+        </Switch>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }

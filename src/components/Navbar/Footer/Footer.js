@@ -1,9 +1,7 @@
 import React from "react";
 import {
   makeStyles,
-  Typography,
   Grid,
-  Container,
   Button,
   IconButton,
   Avatar,
@@ -24,7 +22,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     padding: "40px",
     [theme.breakpoints.only("xs")]: {
-      padding: "10px",
+      padding: "20px",
+    },
+  },
+  socialIcons: {
+    [theme.breakpoints.only("xs")]: {
+      display: "flex",
+      justifyContent: "space-evenly",
     },
   },
 }));
@@ -56,18 +60,18 @@ const list3 = {
 function HomeServices() {
   const classes = useStyles();
   return (
-    <Container maxWidth={null} className={classes.footerContainer}>
+    <div className={classes.footerContainer}>
       <Grid
         container
         alignItems='flex-start'
         justify='space-evenly'
-        spacing={6}
+        spacing={4}
       >
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={6} sm={4}>
           <TreeViewList listData={list1} />
           <TreeViewList listData={list2} />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={6} sm={4}>
           <TreeViewList listData={list3} />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -75,53 +79,87 @@ function HomeServices() {
             <Grid item xs={12}>
               <img src='imgs/vflogo.PNG' alt='Venuefy' />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6} sm={12}>
               <Button startIcon={<Mail />}>info@venuefy.in</Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6} sm={12}>
               <Button startIcon={<Phone />}>+91 90079-67777</Button>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item container justify='space-between'>
-          <Grid item xs={12} sm={5} align='center'>
+        <Grid item xs={12} sm={8} className={classes.socialIcons}>
+          <a
+            href='https://www.facebook.com/venuefy'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <IconButton>
+              <Avatar>
+                <Facebook />
+              </Avatar>
+            </IconButton>
+          </a>
+          <a
+            href='https://www.instagram.com/venuefy'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <IconButton>
+              <Avatar>
+                <Instagram />
+              </Avatar>
+            </IconButton>
+          </a>
+          <a
+            href='https://www.linkedin.com/company/venuefy/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <IconButton>
+              <Avatar>
+                <LinkedIn />
+              </Avatar>
+            </IconButton>
+          </a>
+          <a
+            href='https://www.youtube.com/channel/UCN9YvB4PzFtlNazmnaJUrAA'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <IconButton>
+              <Avatar>
+                <YouTube />
+              </Avatar>
+            </IconButton>
+          </a>
+          <a
+            href='https://www.twitter.com/venuefy'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <IconButton>
+              <Avatar>
+                <Twitter />
+              </Avatar>
+            </IconButton>
+          </a>
+        </Grid>
+        <Grid item xs={12} sm={4} align='center'>
+          <a
+            href='https://www.wdievents.in/'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <img
               src='https://static.wixstatic.com/media/0cbda3_6d68eb4cafc241d08c837a2bfd5021b4~mv2.jpg/v1/fill/w_364,h_89,al_c,q_80,usm_0.66_1.00_0.01/0001%2520(3)_edited.webp'
               alt='WDI Events'
               height='70px'
               width='180px'
             />
-          </Grid>
-          <Grid item xs={12} sm={7} align='end'>
-            <IconButton>
-              <Avatar>
-                <Facebook />
-              </Avatar>
-            </IconButton>
-            <IconButton>
-              <Avatar>
-                <Instagram />
-              </Avatar>
-            </IconButton>
-            <IconButton>
-              <Avatar>
-                <LinkedIn />
-              </Avatar>
-            </IconButton>
-            <IconButton>
-              <Avatar>
-                <YouTube />
-              </Avatar>
-            </IconButton>
-            <IconButton>
-              <Avatar>
-                <Twitter />
-              </Avatar>
-            </IconButton>
-          </Grid>
+          </a>
         </Grid>
       </Grid>
-    </Container>
+    </div>
   );
 }
 
