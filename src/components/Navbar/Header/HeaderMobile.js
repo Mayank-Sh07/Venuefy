@@ -82,36 +82,34 @@ export default function HeaderMobile({ currentPath }) {
               value='/'
               label='Home'
               icon={<Home />}
-              classes={{ selected: classes.selectedBottom }}
+              classes={{ selected: classes.selected }}
             />
             <Divider orientation='vertical' flexItem />
             <BottomNavigationAction
               value='/Contact'
               label='Contact'
               icon={<ContactMail />}
-              classes={{ selected: classes.selectedBottom }}
+              classes={{ selected: classes.selected }}
             />
             <Divider orientation='vertical' flexItem />
             <BottomNavigationAction
               value='/Blog'
               label='Blog'
               icon={<Book />}
-              classes={{ selected: classes.selectedBottom }}
+              classes={{ selected: classes.selected }}
             />
             <Divider orientation='vertical' flexItem />
             <BottomNavigationAction
               value='/Account'
               label='Account'
               icon={<AccountCircle />}
-              classes={{ selected: classes.selectedBottom }}
+              classes={{ selected: classes.selected }}
             />
           </BottomNavigation>
         </Toolbar>
       </Slide>
     );
   }
-
-  console.log(currentPath);
 
   return (
     <>

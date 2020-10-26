@@ -17,6 +17,11 @@ const useStyles = makeStyles((theme) => ({
       top: "130px",
     },
   },
+  angularCarouselContainer: {
+    maxWidth: theme.breakpoints.width("lg"),
+    margin: "auto",
+    padding: "0px 20px",
+  },
   carouselHeight: {
     [theme.breakpoints.only("xs")]: {
       height: "170px",
@@ -47,8 +52,10 @@ const useStyles = makeStyles((theme) => ({
   },
   sliderContainer: {
     position: "relative",
-    width: "97%",
+    width: "100%",
     margin: "auto",
+    borderRadius: "8px",
+    overflow: "hidden",
   },
   secondaryLeft: {
     position: "absolute",
@@ -82,8 +89,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "40%",
   },
   sliderRight: {
-    marginLeft: "40%",
-    transform: `translateX(1px)`,
+    marginLeft: "39%",
   },
   imageClass: {
     objectFit: "contain",
@@ -98,13 +104,14 @@ const useStyles = makeStyles((theme) => ({
     borderTop: "1px solid grey",
     borderBottom: "1px solid grey",
     display: "flex",
+    alignItems: "center",
   },
   flexRight: {
     justifyContent: "flex-end",
   },
   labelTextContainer: {
     display: "flex",
-    flexBasis: "40%",
+    flexGrow: 1,
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "center",
@@ -113,12 +120,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.only("xs")]: {
       paddingLeft: "4px",
     },
-  },
-  labelAction: {
-    display: "flex",
-    flexBasis: "25%",
-    justifyContent: "flex-end",
-    alignItems: "center",
   },
   venueTitle: {
     flexBasis: "40%",
@@ -136,6 +137,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.dark,
     color: "#FFFFFF",
     borderRadius: "2em",
+    marginRight: "10px",
+    maxHeight: "30px",
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
     },
@@ -173,44 +176,54 @@ function HomeAngularCarousel() {
         className={classes.absoluteContainer}
         maxWidth={false}
       >
-        <div className={classes.flexTitle}>
-          <Typography
-            variant='h5'
-            className={classes.secondaryTitle}
-            align='center'
-            component='div'
+        <div className={classes.angularCarouselContainer}>
+          <div className={classes.flexTitle}>
+            <Typography
+              variant='h5'
+              className={classes.secondaryTitle}
+              align='center'
+              component='div'
+            >
+              Resorts
+            </Typography>
+            <Typography
+              variant='h5'
+              className={classes.primaryTitle}
+              align='center'
+            >
+              Banquets
+            </Typography>
+          </div>
+          <div
+            className={clsx(classes.sliderContainer, classes.carouselHeight)}
           >
-            Resorts
-          </Typography>
-          <Typography
-            variant='h5'
-            className={classes.primaryTitle}
-            align='center'
+            <SliderWithImgs data={venueData} classes={classes} type='primary' />
+          </div>
+          <div className={classes.flexTitle}>
+            <Typography
+              variant='h5'
+              className={classes.primaryTitle}
+              align='center'
+            >
+              Hotels
+            </Typography>
+            <Typography
+              variant='h5'
+              className={classes.secondaryTitle}
+              align='center'
+            >
+              Pubs
+            </Typography>
+          </div>
+          <div
+            className={clsx(classes.sliderContainer, classes.carouselHeight)}
           >
-            Banquets
-          </Typography>
-        </div>
-        <div className={clsx(classes.sliderContainer, classes.carouselHeight)}>
-          <SliderWithImgs data={venueData} classes={classes} type='primary' />
-        </div>
-        <div className={classes.flexTitle}>
-          <Typography
-            variant='h5'
-            className={classes.primaryTitle}
-            align='center'
-          >
-            Hotels
-          </Typography>
-          <Typography
-            variant='h5'
-            className={classes.secondaryTitle}
-            align='center'
-          >
-            Pubs
-          </Typography>
-        </div>
-        <div className={clsx(classes.sliderContainer, classes.carouselHeight)}>
-          <SliderWithImgs data={venueData} classes={classes} type='secondary' />
+            <SliderWithImgs
+              data={venueData}
+              classes={classes}
+              type='secondary'
+            />
+          </div>
         </div>
       </Container>
     </>
@@ -222,12 +235,12 @@ function SliderWithImgs({ type, data, classes }) {
     arrows: false,
     dots: false,
     infinite: true,
-    slidesToShow: 2,
+    slidesToShow: 1,
     slidesToScroll: 1,
     fade: true,
     autoplay: true,
-    speed: 4000,
-    autoplaySpeed: 4000,
+    speed: 2000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
     cssEase: "linear",
   };
@@ -246,7 +259,7 @@ function SliderWithImgs({ type, data, classes }) {
         />
         <div className={classes.labelContainer}>
           {position === "right" && (
-            <div style={{ flexBasis: type === "secondary" ? "10%" : "25%" }} />
+            <div style={{ flexBasis: type === "secondary" ? "7%" : "23%" }} />
           )}
           <div className={classes.labelTextContainer}>
             <Typography variant='body1' className={classes.venueTitle} noWrap>
@@ -256,9 +269,12 @@ function SliderWithImgs({ type, data, classes }) {
               {area}
             </Typography>
           </div>
-          <div className={classes.labelAction}>
-            <Button className={classes.bookBtn}>BOOK</Button>
-          </div>
+          <Button className={classes.bookBtn} size='small'>
+            BOOK
+          </Button>
+          {position === "left" && (
+            <div style={{ flexBasis: type === "secondary" ? "33%" : "16%" }} />
+          )}
         </div>
       </div>
     );

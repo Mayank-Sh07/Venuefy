@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
   descriptionContainer: {
     position: "relative",
     height: "600px",
-    border: "1px solid black",
     borderBottom: "none",
+    backgroundColor: theme.palette.primary.main,
     [theme.breakpoints.down("sm")]: {
       height: "450px",
     },
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "0px",
     width: "100%",
-    clipPath: `polygon(75% 0px, 100% 0%, 100% 100%, 50% 72%)`,
+    clipPath: `polygon(76% 0px, 100% 0%, 100% 100%, 49% 72%)`,
     display: "flex",
     justifyContent: "flex-end",
   },
@@ -43,21 +43,22 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "0px",
     width: "100%",
-    clipPath: `polygon(0px 0px, 75% 0px, 50% 85%, 0px 85%)`,
+    clipPath: `polygon(0px 0px, 76% 0px, 50% 85%, 0px 85%)`,
     backgroundColor: theme.palette.secondary.light,
   },
   leftHeading: {
-    padding: "20px 20px 20px 90px",
+    padding: "20px 20px 20px 75px",
   },
   leftText: {
     backgroundColor: theme.palette.secondary.main,
-    height: "55%",
+    height: "50%",
     margin: "10px 20% 10px 80px",
-    clipPath: `polygon(0px 0px, 76% 0px, 54% 85%, 0px 85%)`,
+    clipPath: `polygon(0px 0px, 76% 0px, 56% 85%, 0px 85%)`,
     padding: "20px 26% 10px 20px",
     fontSize: "18px",
-    [theme.breakpoints.only("md")]: {
+    [theme.breakpoints.down("md")]: {
       fontSize: "23px",
+      clipPath: `polygon(0px 0px, 76% 0px, 55% 85%, 0px 85%)`,
     },
     [theme.breakpoints.only("lg")]: {
       fontSize: "30px",
@@ -123,9 +124,6 @@ function HomeAngularDescription() {
               </h5>
             </div>
           </div>
-          {/* <Typography variant='h2' className={classes.sectionHead}>
-            Venuefy Services
-          </Typography> */}
         </Hidden>
         <Hidden smUp>
           <Card className={classes.mobileBG} square>

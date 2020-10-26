@@ -26,12 +26,18 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.25em",
     textTransform: "none",
     [theme.breakpoints.only("sm")]: {
-      minWidth: theme.spacing(12),
-      width: theme.spacing(12),
-      fontSize: "0.8em",
+      minWidth: theme.spacing(11),
+      width: theme.spacing(11),
+      fontSize: "0.75em",
     },
-    [theme.breakpoints.only("lg")]: {
-      minWidth: theme.spacing(14),
+    [theme.breakpoints.only("md")]: {
+      minWidth: theme.spacing(15),
+      width: theme.spacing(15),
+      fontSize: "1em",
+    },
+    [theme.breakpoints.up("lg")]: {
+      minWidth: theme.spacing(18),
+      width: theme.spacing(18),
     },
   },
   indicator: {
@@ -46,9 +52,11 @@ const useStyles = makeStyles((theme) => ({
   },
   selected: {
     fontWeight: "600",
-    fontSize: "1.50em",
+    fontSize: "1.20em",
+    backgroundColor: "rgba(38,37,42,0.8)",
+    borderRadius: "8px",
     [theme.breakpoints.down("sm")]: {
-      fontSize: "1em",
+      fontSize: "0.8em",
     },
   },
 }));
@@ -106,14 +114,15 @@ export default function Header({ currentPath }) {
               value='/Venues'
               classes={{ root: classes.tab, selected: classes.selected }}
             />
-            <Tab
-              label='Testimonials'
-              value='/Testimonials'
-              classes={{ root: classes.tab, selected: classes.selected }}
-            />
+
             <Tab
               label='Vendors'
               value='/Vendors'
+              classes={{ root: classes.tab, selected: classes.selected }}
+            />
+            <Tab
+              label='Testimonials'
+              value='/Testimonials'
               classes={{ root: classes.tab, selected: classes.selected }}
             />
             <Tab

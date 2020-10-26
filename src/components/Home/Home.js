@@ -8,7 +8,7 @@ import HomePoster from "./HomePoster/HomePoster";
 import HomeServices from "./HomeServices/HomeServices";
 import HomeFeatures from "./HomeFeatures/HomeFeatures";
 // disabled location finder for dev setup
-Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
+// Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
 
 const useStyles = makeStyles((theme) => ({
   tagContainerBG: {
@@ -46,7 +46,6 @@ function Home({ geoCoords }) {
     if (geoCoords !== null) {
       Geocode.fromLatLng(geoCoords.lat, geoCoords.lng).then(
         (response) => {
-          console.log(response.results[0]);
           if (response) {
             const userLocation = {};
             response.results[0].address_components.forEach((address) => {
@@ -58,7 +57,6 @@ function Home({ geoCoords }) {
                 userLocation.zip = address.short_name;
               }
             });
-            console.log(userLocation);
             setLocation(userLocation);
           }
         },
@@ -85,8 +83,8 @@ function Home({ geoCoords }) {
         maxWidth={false}
       ></Container>
       <HomeAngularCarousel />
-      <HomePoster />
       <HomeAngularDescription />
+      <HomePoster />
       <HomeServices />
       <HomeFeatures />
     </>

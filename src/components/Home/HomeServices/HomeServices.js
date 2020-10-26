@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import {
   makeStyles,
   Typography,
@@ -14,11 +15,34 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   serviceContainer: {
-    padding: "35px",
     backgroundColor: theme.palette.secondary.main,
   },
+  serviceCardContainer: {
+    maxWidth: theme.breakpoints.width("lg"),
+    margin: "auto",
+    [theme.breakpoints.only("xs")]: {
+      padding: "0px 30px",
+    },
+  },
+  serviceCard: {
+    [theme.breakpoints.only("xs")]: {
+      margin: "15px 10px",
+    },
+
+    [theme.breakpoints.only("sm")]: {
+      margin: "10px",
+    },
+
+    [theme.breakpoints.only("md")]: {
+      margin: "15px 30px",
+    },
+
+    [theme.breakpoints.up("lg")]: {
+      margin: "20px 50px",
+    },
+  },
   rounded: {
-    borderRadius: "2.5em",
+    borderRadius: "3em",
   },
   btnRounded: {
     backgroundColor: "#FFFFFF",
@@ -28,7 +52,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
   sectionHead: {
-    padding: "70px 0px 0px",
+    padding: "20px 20px 20px 75px",
+    [theme.breakpoints.only("xs")]: {
+      textAlign: "center",
+      padding: "15px 0px",
+    },
   },
 }));
 
@@ -44,22 +72,25 @@ const serviceData = [
 function HomeServices() {
   const classes = useStyles();
   return (
-    <Container maxWidth={null} className={classes.serviceContainer}>
-      <Grid container alignItems='center' justify='space-evenly' spacing={6}>
-        <Hidden smUp>
-          <Grid item xs={12} sm={0} style={{ paddingBottom: "0px" }}>
-            <Typography
-              variant='h3'
-              align='center'
-              className={classes.sectionHead}
-            >
-              Venuefy Services
-            </Typography>
-          </Grid>
-        </Hidden>
+    <Container
+      maxWidth={null}
+      className={classes.serviceContainer}
+      disableGutters
+    >
+      <Grid
+        container
+        alignItems='center'
+        justify='space-around'
+        className={classes.serviceCardContainer}
+      >
+        <Grid item xs={12}>
+          <Typography variant='h2' className={classes.sectionHead}>
+            Venuefy Services
+          </Typography>
+        </Grid>
         {serviceData.map((service) => (
           <Grid item xs={12} sm={4}>
-            <Card className={classes.rounded}>
+            <Card className={clsx(classes.rounded, classes.serviceCard)}>
               <CardMedia
                 component='img'
                 alt='service image'
