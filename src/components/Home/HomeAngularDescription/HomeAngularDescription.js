@@ -73,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: theme.palette.primary.main,
     overflow: "visible",
-    paddingTop: "30px",
   },
   rounded: {
     borderRadius: "1em",

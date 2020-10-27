@@ -138,9 +138,16 @@ const useStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     borderRadius: "2em",
     marginRight: "10px",
-    maxHeight: "30px",
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
+    },
+  },
+  tinyButton: {
+    [theme.breakpoints.only("xs")]: {
+      minWidth: "unset",
+      width: "40px",
+      height: "24px",
+      fontSize: "0.5em",
     },
   },
 }));
@@ -269,11 +276,15 @@ function SliderWithImgs({ type, data, classes }) {
               {area}
             </Typography>
           </div>
-          <Button className={classes.bookBtn} size='small'>
+          <Button
+            className={classes.bookBtn}
+            size='small'
+            classes={{ root: classes.tinyButton }}
+          >
             BOOK
           </Button>
           {position === "left" && (
-            <div style={{ flexBasis: type === "secondary" ? "33%" : "16%" }} />
+            <div style={{ flexBasis: type === "secondary" ? "33%" : "17%" }} />
           )}
         </div>
       </div>

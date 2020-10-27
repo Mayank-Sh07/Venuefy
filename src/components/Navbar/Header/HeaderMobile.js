@@ -6,7 +6,6 @@ import {
   BottomNavigation,
   BottomNavigationAction,
   Toolbar,
-  Button,
   useScrollTrigger,
   Slide,
   Divider,
@@ -19,6 +18,8 @@ import {
   Home,
   ContactMail,
   Book,
+  WhatsApp,
+  Phone,
 } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -52,12 +53,23 @@ const useStyles = makeStyles((theme) => ({
   },
   floatingNav: {
     borderRadius: "1.75em",
-    border: "1px solid white",
+    border: "0.3px solid white",
+    boxShadow: `0px 3px 0px -6px rgba(255,255,255,0.2), 0px 0px 10px 1px rgba(255,255,255,0.14), 0px -1px 6px 3px rgba(255,255,255,0.12)`,
+    overflow: "hidden",
   },
   selectedBottom: {
-    backgroundColor: "rgba(255,255,255,0.75)",
-    textShadow: `0 0 2px white`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.5)`,
+    backgroundColor: "#FFFFFF",
+    textShadow: `0 0 2px black`,
+    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.25)`,
+  },
+  tinyLabel: {
+    fontSize: "7px",
+    opacity: "1 !important",
+  },
+  tinyButtons: {
+    padding: "0px !important",
+    marginLeft: "8px",
+    minWidth: "0px",
   },
 }));
 
@@ -68,42 +80,43 @@ export default function HeaderMobile({ currentPath }) {
     history.push(newRoute);
   };
 
-  function HideOnScroll(props) {
+  function FloatingNavBar(props) {
     const trigger = useScrollTrigger();
     return (
       <Slide in={!trigger} direction='up'>
         <Toolbar className={classes.floatingNavContainer} disableGutters>
           <BottomNavigation
+            value={currentPath}
+            onChange={handleChange}
             showLabels
             className={classes.floatingNav}
-            onChange={handleChange}
           >
             <BottomNavigationAction
               value='/'
               label='Home'
               icon={<Home />}
-              classes={{ selected: classes.selected }}
+              classes={{ selected: classes.selectedBottom }}
             />
             <Divider orientation='vertical' flexItem />
             <BottomNavigationAction
               value='/Contact'
               label='Contact'
               icon={<ContactMail />}
-              classes={{ selected: classes.selected }}
+              classes={{ selected: classes.selectedBottom }}
             />
             <Divider orientation='vertical' flexItem />
             <BottomNavigationAction
               value='/Blog'
               label='Blog'
               icon={<Book />}
-              classes={{ selected: classes.selected }}
+              classes={{ selected: classes.selectedBottom }}
             />
             <Divider orientation='vertical' flexItem />
             <BottomNavigationAction
               value='/Account'
               label='Account'
               icon={<AccountCircle />}
-              classes={{ selected: classes.selected }}
+              classes={{ selected: classes.selectedBottom }}
             />
           </BottomNavigation>
         </Toolbar>
@@ -119,7 +132,63 @@ export default function HeaderMobile({ currentPath }) {
             <div className={classes.title}>
               <img src='imgs/vflogo.PNG' alt='Venuefy' />
             </div>
-            <Button>Testimonials</Button>
+            <BottomNavigation showLabels style={{ height: "unset" }}>
+              <BottomNavigationAction
+                label='Testimonials'
+                icon={
+                  <AccountCircle
+                    style={{
+                      color: "white",
+                      fontSize: "18px",
+                    }}
+                  />
+                }
+                classes={{
+                  root: classes.tinyButtons,
+                  label: classes.tinyLabel,
+                }}
+                onClick={() => history.push("/Testimonials")}
+              />
+              <a href='tel:+919007967777' style={{ textDecoration: "none" }}>
+                <BottomNavigationAction
+                  label='Call Us'
+                  icon={
+                    <Phone
+                      style={{
+                        color: "white",
+                        fontSize: "18px",
+                      }}
+                    />
+                  }
+                  classes={{
+                    root: classes.tinyButtons,
+                    label: classes.tinyLabel,
+                  }}
+                />
+              </a>
+              <a
+                href='https://api.whatsapp.com/send?phone=+917605054440&text=hey+I%27m+looking+for+a+venue'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <BottomNavigationAction
+                  label='Whatsapp'
+                  icon={
+                    <WhatsApp
+                      style={{
+                        color: "white",
+                        backgroundColor: "#25D366",
+                        fontSize: "18px",
+                      }}
+                    />
+                  }
+                  classes={{
+                    root: classes.tinyButtons,
+                    label: classes.tinyLabel,
+                  }}
+                />
+              </a>
+            </BottomNavigation>
           </Toolbar>
           <BottomNavigation
             value={currentPath}
@@ -147,7 +216,7 @@ export default function HeaderMobile({ currentPath }) {
           </BottomNavigation>
         </AppBar>
       </div>
-      <HideOnScroll />
+      <FloatingNavBar />
     </>
   );
 }
