@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   leftHeading: {
     padding: "20px 20px 20px 75px",
+    fontWeight: 600,
   },
   leftText: {
     backgroundColor: theme.palette.secondary.main,
@@ -57,14 +58,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px 26% 10px 20px",
     fontSize: "18px",
     [theme.breakpoints.down("md")]: {
-      fontSize: "23px",
+      fontSize: "21px",
       clipPath: `polygon(0px 0px, 76% 0px, 55% 85%, 0px 85%)`,
     },
     [theme.breakpoints.only("lg")]: {
-      fontSize: "30px",
+      fontSize: "27px",
     },
-    [theme.breakpoints.up("xl")]: {
-      fontSize: "40px",
+    [theme.breakpoints.only("sm")]: {
+      fontSize: "18px",
     },
   },
 
@@ -134,9 +135,9 @@ function HomeAngularDescription() {
               >
                 Who are we?
               </Typography>
-              <Typography paragraph align='center'>
-                We provide all Venue and Non-Venue services related to a
-                plethora of events, from your choice of make-up artists and
+              <Typography variant='subtitle1' paragraph align='center'>
+                We provide a variety of Venue and Non-Venue services related to
+                a plethora of events, from your choice of make-up artists and
                 florists to exquisite banquets and cruise ships.
               </Typography>
             </CardContent>
@@ -147,7 +148,7 @@ function HomeAngularDescription() {
               height='250px'
               className={classes.rounded}
               style={{
-                margin: "8px auto 0px",
+                margin: "4px auto 0px",
                 position: "relative",
                 width: "80%",
               }}

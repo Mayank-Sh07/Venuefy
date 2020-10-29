@@ -13,6 +13,11 @@ const theme = createMuiTheme({
     },
     background: { default: "#FFFFFF", paper: "#201f24" },
   },
+  typography: {
+    button: {
+      textTransform: "none",
+    },
+  },
 });
 
 const venuefyTheme = responsiveFontSizes(theme);

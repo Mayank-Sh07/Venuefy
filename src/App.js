@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Geocode from "react-geocode";
 import {
   Navbar,
   Home,
@@ -12,15 +13,41 @@ import {
 } from "./components";
 import { usePosition } from "use-position";
 
+// disabled location finder for dev setup
+// Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
+
 function App() {
-  const [geoCoords, setGeoCoords] = useState(null);
+  const [location, setLocation] = useState({
+    city: "City",
+    area: "Area",
+    zip: null,
+  });
   const { latitude, longitude } = usePosition();
 
   useEffect(() => {
     if (!!latitude && !!longitude) {
-      setGeoCoords({ lat: latitude, lng: longitude });
+      Geocode.fromLatLng(latitude, longitude).then(
+        (response) => {
+          if (response) {
+            const userLocation = {};
+            response.results[0].address_components.forEach((address) => {
+              if (address.types.indexOf("sublocality") !== -1) {
+                userLocation.area = address.short_name;
+              } else if (address.types.indexOf("locality") !== -1) {
+                userLocation.city = address.short_name;
+              } else if (address.types.indexOf("postal_code") !== -1) {
+                userLocation.zip = address.short_name;
+              }
+            });
+            setLocation(userLocation);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     }
-  }, [latitude, longitude]);
+  }, [longitude]);
 
   return (
     <div className='App'>
@@ -38,7 +65,7 @@ function App() {
           <Route exact path='/Blog' render={(props) => <Blog />} />
           <Route
             path='/'
-            render={(props) => <Home {...props} geoCoords={geoCoords} />}
+            render={(props) => <Home {...props} location={location} />}
           />
         </Switch>
         <Footer />

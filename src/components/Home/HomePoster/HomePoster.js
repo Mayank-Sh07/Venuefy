@@ -1,169 +1,159 @@
-// import React from "react";
-// import {
-//   makeStyles,
-//   Typography,
-//   Container,
-//   Grid,
-//   Paper,
-//   Button,
-// } from "@material-ui/core";
-
-// const useStyles = makeStyles((theme) => ({
-//   posterContainer: {
-//     width: "100%",
-//     height: "400px",
-//     backgroundColor: "red",
-//     [theme.breakpoints.down("sm")]: {
-//       height: "300px",
-//     },
-//     [theme.breakpoints.up("lg")]: {
-//       height: "500px",
-//     },
-//     backgroundImage: `url("imgs/Promotion.jpg")`,
-//     backgroundRepeat: "no-repeat",
-//     backgroundSize: "cover",
-//     paddingTop: "50px",
-//     paddingBottom: "50px",
-//   },
-//   poster: {
-//     borderRadius: "2.5em",
-//     border: "2px solid white",
-//     backgroundColor: "rgba(255,255,255,0.85)",
-//     padding: "20px",
-//     // height: "400px",
-//     color: "black",
-//     // [theme.breakpoints.down("sm")]: {
-//     //   height: "300px",
-//     // },
-//     // [theme.breakpoints.up("lg")]: {
-//     //   height: "500px",
-//     // },
-//   },
-
-//   exploreBtn: {
-//     margin: "15px",
-//     backgroundColor: theme.palette.primary.dark,
-//     color: "#FFFFFF",
-//     borderRadius: "2em",
-//     padding: "8px 12px",
-//     [theme.breakpoints.only("sm")]: {
-//       margin: "5px",
-//     },
-//     "&:hover": {
-//       backgroundColor: theme.palette.primary.dark,
-//     },
-//   },
-//   largeOnly: {
-//     [theme.breakpoints.up("lg")]: {
-//       padding: "60px 70px",
-//     },
-//   },
-// }));
-
-// function HomePoster() {
-//   const classes = useStyles();
-//   return (
-//     <>
-//       <Container className={classes.posterContainer} maxWidth={null}>
-//         <Grid container justify='center' alignItems='center'>
-//           <Grid item xs={0} sm={4} />
-//           <Grid item xs={0} sm={3} />
-//           <Grid item xs={12} sm={5}>
-//             <Paper className={classes.poster}>
-//               <Grid
-//                 container
-//                 direction='column'
-//                 justify='center'
-//                 alignItems='center'
-//                 className={classes.largeOnly}
-//               >
-//                 <Grid item>
-//                   <Typography variant='h2' style={{ paddingTop: "50px" }}>
-//                     Book Now
-//                   </Typography>
-//                 </Grid>
-//                 <Grid item>
-//                   <Typography
-//                     variant='h5'
-//                     align='center'
-//                     style={{ padding: "10px" }}
-//                   >
-//                     discounts on pre-booking
-//                   </Typography>
-//                 </Grid>
-//                 <Grid item>
-//                   <Typography variant='subtitle1'>Banquets</Typography>
-//                 </Grid>
-//                 <Grid item>
-//                   <Typography variant='subtitle1'>Resorts</Typography>
-//                 </Grid>
-//                 <Grid item>
-//                   <Typography variant='subtitle1'>Vendors</Typography>
-//                 </Grid>
-//                 <Grid item>
-//                   <Button size='large' className={classes.exploreBtn}>
-//                     Explore
-//                   </Button>
-//                 </Grid>
-//               </Grid>
-//             </Paper>
-//           </Grid>
-//         </Grid>
-//       </Container>
-//     </>
-//   );
-// }
-
-// export default HomePoster;
-
 import React from "react";
+import Slider from "react-slick";
 import {
   makeStyles,
   Typography,
   Container,
   Grid,
-  Paper,
   Button,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   posterContainer: {
     backgroundColor: theme.palette.primary.main,
-    padding: "15px 0px",
+    marginTop: "-2px",
+    padding: "15px 0px 0px",
     [theme.breakpoints.down("xs")]: {
       marginTop: "75px",
-      backgroundColor: "#FFFFFF",
-      padding: "10px 0px",
+      backgroundColor: theme.palette.secondary.light,
     },
   },
   posterCarouselContainer: {
     width: "100%",
-    height: "350px",
+    height: "400px",
     borderRadius: "4px",
-    backgroundColor: "red",
     [theme.breakpoints.down("sm")]: {
-      height: "300px",
+      height: "350px",
     },
     [theme.breakpoints.up("lg")]: {
-      height: "420px",
+      height: "450px",
     },
-    // backgroundImage: `url("imgs/Promotion.jpg")`,
+  },
+  slideBackground: {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
+    height: "100%",
+    width: "100%",
+    display: "flex",
+  },
+  slideContainer: {
+    padding: "20px 30px",
+  },
+  slidePaper: {
+    borderRadius: "4em",
+    backgroundColor: "rgba(255,255,255,0.5)",
+    padding: "15px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    [theme.breakpoints.only("xs")]: {
+      borderRadius: "1em",
+    },
+  },
+  exploreBtn: {
+    margin: "15px",
+    color: "#FFFFFF",
+    borderRadius: "2em",
+    padding: "8px 12px",
+    backgroundColor: "#000000",
+    [theme.breakpoints.only("sm")]: {
+      margin: "5px",
+    },
+    "&:hover": {
+      backgroundColor: "#1e1e1e",
+    },
   },
 }));
 
+const data = [
+  {
+    title: "Vendor1",
+    description:
+      "Vendor description for vendor 1, testing the space occupied for text of length 100 charactes",
+    photoURL: "imgs/card-profile5-square.jpg",
+  },
+  {
+    title: "Vendor2",
+    description:
+      "Vendor description for vendor 2, testing the space occupied for text of length 100 charactes",
+    photoURL: "imgs/card-profile4-square.jpg",
+  },
+  {
+    title: "Vendor3",
+    description:
+      "Vendor description for vendor 3, testing the space occupied for text of length 100 charactes",
+    photoURL: "imgs/card-profile6-square.jpg",
+  },
+];
+
 function HomePoster() {
   const classes = useStyles();
+
+  const sliderProps = {
+    arrows: false,
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    speed: 2000,
+  };
+
+  const VendorSlide = ({ title, description, photoURL }) => {
+    return (
+      <Container
+        className={classes.posterCarouselContainer}
+        maxWidth='xl'
+        disableGutters
+      >
+        <div
+          className={classes.slideBackground}
+          style={{ backgroundImage: `url(${photoURL})` }}
+        >
+          <Grid
+            container
+            justify='space-evenly'
+            alignItems='stretch'
+            className={classes.slideContainer}
+          >
+            <Grid item xs={0} sm={4} md={4} />
+            <Grid item xs={0} sm={4} md={5} />
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              md={3}
+              component='div'
+              className={classes.slidePaper}
+            >
+              <Typography variant='h5' align='center'>
+                {title}
+              </Typography>
+              <Typography paragraph align='center'>
+                {description}
+              </Typography>
+              <Button className={classes.exploreBtn}>Explore</Button>
+            </Grid>
+          </Grid>
+        </div>
+      </Container>
+    );
+  };
+
   return (
     <Container
       maxWidth={null}
       className={classes.posterContainer}
       disableGutters
     >
-      <Container className={classes.posterCarouselContainer} maxWidth='lg'>
-        <Grid container justify='center' alignItems='center'></Grid>
-      </Container>
+      <Slider {...sliderProps}>
+        {data.map((vendor) => (
+          <VendorSlide
+            title={vendor.title}
+            description={vendor.description}
+            photoURL={vendor.photoURL}
+          />
+        ))}
+      </Slider>
     </Container>
   );
 }

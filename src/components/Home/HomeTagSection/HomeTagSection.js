@@ -118,6 +118,10 @@ const cities = [
 
 function HomeTagSection({ location }) {
   const classes = useStyles();
+  const refreshPage = (event) => {
+    event.preventDefault();
+    window.location.reload(false);
+  };
   return (
     <Container
       disableGutters
@@ -199,7 +203,10 @@ function HomeTagSection({ location }) {
                 <Button fullWidth startIcon={<Search />}>
                   Nearby
                 </Button>
-                <IconButton style={{ marginleft: "16px" }}>
+                <IconButton
+                  style={{ marginleft: "16px" }}
+                  onClick={refreshPage}
+                >
                   <MyLocation />
                 </IconButton>
               </Grid>
@@ -271,10 +278,10 @@ function HomeTagSection({ location }) {
                 />
               </Grid>
               <Grid item xs={3} className={classes.topBarGI}>
-                <IconButton className={classes.tagIcon}>
+                <IconButton type='button' className={classes.tagIcon}>
                   <Search />
                 </IconButton>
-                <IconButton className={classes.tagIcon}>
+                <IconButton className={classes.tagIcon} onClick={refreshPage}>
                   <MyLocation />
                 </IconButton>
               </Grid>

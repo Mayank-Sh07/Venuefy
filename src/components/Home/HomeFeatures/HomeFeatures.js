@@ -9,8 +9,8 @@ import {
   Card,
   CardMedia,
   Container,
+  useTheme,
 } from "@material-ui/core";
-import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 
 const useStyles = makeStyles((theme) => ({
   featurePaper: {
@@ -48,6 +48,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.width("sm")]: {
       minWidth: "120px",
     },
+  },
+  btnActive: {
+    backgroundColor: theme.palette.primary.dark,
+    color: "#FFFFFF",
+    padding: "12px 18px",
   },
   floating: {
     marginLeft: "8%",
@@ -124,14 +129,27 @@ const data = [
 
 function HomeFeatures() {
   const classes = useStyles();
+  const theme = useTheme();
   const [index, setIndex] = useState(0);
 
   const setIndx = (indexVal) => {
     setIndex(indexVal);
+    if (window.innerWidth < theme.breakpoints.width("sm")) {
+      let element = document.getElementById("feature-container");
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const btnClasses = (val) => {
+    if (index === val) return clsx(classes.btnActive, classes.btnRounded);
+    else return classes.btnRounded;
   };
 
   return (
-    <Container disableGutters>
+    <Container disableGutters id='feature-container'>
       <Paper className={classes.featurePaper} elevation={12}>
         <Grid
           container
@@ -148,51 +166,32 @@ function HomeFeatures() {
               className={classes.btnContainer}
             >
               <Grid item>
-                <Button
-                  className={classes.btnRounded}
-                  onClick={() => setIndx(0)}
-                  // endIcon={<DoubleArrowIcon />}
-                >
+                <Button className={btnClasses(0)} onClick={() => setIndx(0)}>
                   Supervisors
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  className={classes.btnRounded}
-                  onClick={() => setIndx(1)}
-                >
+                <Button className={btnClasses(1)} onClick={() => setIndx(1)}>
                   Video Reviews
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  className={classes.btnRounded}
-                  onClick={() => setIndx(2)}
-                >
+                <Button className={btnClasses(2)} onClick={() => setIndx(2)}>
                   Coordinators
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  className={classes.btnRounded}
-                  onClick={() => setIndx(3)}
-                >
+                <Button className={btnClasses(3)} onClick={() => setIndx(3)}>
                   Counsultants
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  className={classes.btnRounded}
-                  onClick={() => setIndx(4)}
-                >
+                <Button className={btnClasses(4)} onClick={() => setIndx(4)}>
                   No-Star Rating
                 </Button>
               </Grid>
               <Grid item>
-                <Button
-                  className={classes.btnRounded}
-                  onClick={() => setIndx(5)}
-                >
+                <Button className={btnClasses(5)} onClick={() => setIndx(5)}>
                   Discounts
                 </Button>
               </Grid>

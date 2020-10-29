@@ -196,8 +196,8 @@ export default function HeaderMobile({ currentPath }) {
             showLabels
           >
             <BottomNavigationAction
-              value='/Venue'
-              label='Venue'
+              value='/Venues'
+              label='Venues'
               icon={<LocationCity />}
               classes={{ selected: classes.selected }}
             />

@@ -31,6 +31,13 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "space-evenly",
     },
   },
+  avatarBG: {
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+  },
+  iconBG: {
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: "4px",
+  },
 }));
 
 const list1 = {
@@ -80,10 +87,17 @@ function HomeServices() {
               <img src='imgs/vflogo.PNG' alt='Venuefy' />
             </Grid>
             <Grid item xs={6} sm={12}>
-              <Button startIcon={<Mail />}>info@venuefy.in</Button>
+              <a
+                href='mailto: info@venuefy.in'
+                style={{ textDecoration: "none" }}
+              >
+                <Button startIcon={<Mail />}>info@venuefy.in</Button>
+              </a>
             </Grid>
             <Grid item xs={6} sm={12}>
-              <Button startIcon={<Phone />}>+91 90079-67777</Button>
+              <a href='tel:+919007967777' style={{ textDecoration: "none" }}>
+                <Button startIcon={<Phone />}>+91 90079-67777</Button>
+              </a>
             </Grid>
           </Grid>
         </Grid>
@@ -94,8 +108,11 @@ function HomeServices() {
             rel='noopener noreferrer'
           >
             <IconButton>
-              <Avatar>
-                <Facebook />
+              <Avatar className={classes.avatarBG}>
+                <Facebook
+                  style={{ color: "#4267B2" }}
+                  className={classes.iconBG}
+                />
               </Avatar>
             </IconButton>
           </a>
@@ -105,8 +122,11 @@ function HomeServices() {
             rel='noopener noreferrer'
           >
             <IconButton>
-              <Avatar>
-                <Instagram />
+              <Avatar className={classes.avatarBG}>
+                <Instagram
+                  style={{ color: "#E1306C" }}
+                  className={classes.iconBG}
+                />
               </Avatar>
             </IconButton>
           </a>
@@ -116,8 +136,11 @@ function HomeServices() {
             rel='noopener noreferrer'
           >
             <IconButton>
-              <Avatar>
-                <LinkedIn />
+              <Avatar className={classes.avatarBG}>
+                <LinkedIn
+                  style={{ color: "#2867B2" }}
+                  className={classes.iconBG}
+                />
               </Avatar>
             </IconButton>
           </a>
@@ -127,8 +150,11 @@ function HomeServices() {
             rel='noopener noreferrer'
           >
             <IconButton>
-              <Avatar>
-                <YouTube />
+              <Avatar className={classes.avatarBG}>
+                <YouTube
+                  style={{ color: "#FF0000" }}
+                  className={classes.iconBG}
+                />
               </Avatar>
             </IconButton>
           </a>
@@ -138,8 +164,11 @@ function HomeServices() {
             rel='noopener noreferrer'
           >
             <IconButton>
-              <Avatar>
-                <Twitter />
+              <Avatar className={classes.avatarBG}>
+                <Twitter
+                  style={{ color: "#1DA1F2" }}
+                  className={classes.iconBG}
+                />
               </Avatar>
             </IconButton>
           </a>

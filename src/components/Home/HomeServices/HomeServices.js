@@ -10,12 +10,11 @@ import {
   CardMedia,
   CardContent,
   CardActions,
-  Hidden,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   serviceContainer: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.light,
   },
   serviceCardContainer: {
     maxWidth: theme.breakpoints.width("lg"),
@@ -50,9 +49,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "2em",
     padding: "8px 12px",
     margin: "auto",
+    "&:hover": {
+      backgroundColor: "#FFFFFF",
+    },
   },
   sectionHead: {
     padding: "20px 20px 20px 75px",
+    fontWeight: 600,
     [theme.breakpoints.only("xs")]: {
       textAlign: "center",
       padding: "15px 0px",
