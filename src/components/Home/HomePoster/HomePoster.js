@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import Slider from "react-slick";
 import {
   makeStyles,
@@ -89,10 +89,10 @@ const data = [
 
 function HomePoster() {
   const classes = useStyles();
-
+  const [slider, setSlider] = React.useState(null);
   const sliderProps = {
     arrows: false,
-    dots: false,
+    dots: true,
     infinite: true,
     slidesToShow: 1,
     speed: 2000,
@@ -145,7 +145,12 @@ function HomePoster() {
       className={classes.posterContainer}
       disableGutters
     >
-      <Slider {...sliderProps}>
+      <Slider
+        {...sliderProps}
+        ref={(c) => {
+          setSlider(c);
+        }}
+      >
         {data.map((vendor) => (
           <VendorSlide
             title={vendor.title}
@@ -154,6 +159,7 @@ function HomePoster() {
           />
         ))}
       </Slider>
+      {/* <Button onClick={() => slider.slickPrev()}>Back</Button> */}
     </Container>
   );
 }

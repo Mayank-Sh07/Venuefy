@@ -1,5 +1,5 @@
 import Home from "./Home/Home";
-import Venues from "./Venues/Venues";
+import Venues from "./Venues/VenuesNew";
 import Vendors from "./Vendors/Vendors";
 import Testimonials from "./Testimonials/Testimonials";
 import AboutUs from "./AboutUs/AboutUs";

@@ -15,6 +15,7 @@ import { WhatsApp, Phone } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    minHeight: 88,
   },
   menuButton: {
     marginRight: theme.spacing(1.5),
@@ -70,7 +71,7 @@ export default function Header({ currentPath }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar position='fixed'>
         <div className={classes.contacts}>
           <a
             href='https://api.whatsapp.com/send?phone=+917605054440&text=hey+I%27m+looking+for+a+venue'

@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Controller } from "react-hook-form";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -26,13 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FilterSelect() {
+export default function FilterSelect({ control }) {
   const classes = useStyles();
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
 
   return (
     <div className={classes.selectContainer}>
@@ -41,25 +37,23 @@ export default function FilterSelect() {
         variant='outlined'
         classes={{ root: classes.formControl }}
       >
-        <InputLabel className={classes.labelProps}>Age</InputLabel>
-        <Select
-          labelId='demo-simple-select-outlined-label'
-          id='demo-simple-select-outlined'
-          value={age}
-          onChange={handleChange}
-          label='Age'
-          classes={{ root: classes.selectRoot }}
-          inputProps={{
-            style: { borderRadius: "2em" },
-          }}
-        >
-          <MenuItem value=''>
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
+        <InputLabel className={classes.labelProps}>Location</InputLabel>
+        <Controller
+          as={
+            <Select
+              classes={{ root: classes.selectRoot }}
+              inputProps={{
+                style: { borderRadius: "2em" },
+              }}
+            >
+              <MenuItem value={"Delhi"}>Delhi</MenuItem>
+              <MenuItem value={"Chennai"}>Chennai</MenuItem>
+              <MenuItem value={"Kolkata"}>Kolkata</MenuItem>
+            </Select>
+          }
+          name='location'
+          control={control}
+        />
       </FormControl>
     </div>
   );

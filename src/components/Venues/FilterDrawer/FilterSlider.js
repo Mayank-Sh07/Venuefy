@@ -1,4 +1,5 @@
 import React from "react";
+import { Controller } from "react-hook-form";
 import { makeStyles, Typography, Slider } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -38,20 +39,29 @@ const marks = [
   },
 ];
 
-export default function FilterSlider() {
+export default function FilterSlider({ control }) {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <Typography id='discrete-slider-restrict'>Guest Capacity</Typography>
-      <Slider
+      <Controller
+        name='guest capacity'
+        control={control}
         defaultValue={20}
-        color='secondary'
-        valueLabelFormat={"upto"}
-        step={null}
-        valueLabelDisplay='auto'
-        marks={marks}
-        classes={{ markLabel: classes.tinyLabel }}
+        render={(props) => (
+          <Slider
+            {...props}
+            onChange={(_, value) => {
+              props.onChange(value);
+            }}
+            valueLabelDisplay='auto'
+            color='secondary'
+            valueLabelFormat={"upto"}
+            step={20}
+            marks={marks}
+            classes={{ markLabel: classes.tinyLabel }}
+          />
+        )}
       />
     </div>
   );

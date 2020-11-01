@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import clsx from "clsx";
+import { Scrollbars } from "react-custom-scrollbars";
 import {
   makeStyles,
   Drawer,
@@ -6,17 +9,14 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  List,
   Divider,
   IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Button,
 } from "@material-ui/core";
-import { Mail, Inbox, Delete, CloseSharp } from "@material-ui/icons";
+import { Delete, ChevronLeft } from "@material-ui/icons";
 import FilterSelect from "./FilterSelect";
 import FilterSlider from "./FilterSlider";
+import FilterList from "./FilterList";
 
 const drawerWidth = 240;
 
@@ -27,12 +27,27 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  tagBarShift: {
+    [theme.breakpoints.up("lg")]: {
+      width: `100%`,
+      paddingLeft: drawerWidth,
+      transition: theme.transitions.create(["padding", "width"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
     width: drawerWidth,
+    // position: "absolute",
+    overflowX: "hidden",
+    [theme.breakpoints.up("lg")]: {
+      height: "85vh",
+    },
   },
   drawerHeader: {
     display: "flex",
@@ -42,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.only("xs")]: {
       height: "120px",
     },
+  },
+  hide: {
+    display: "none",
   },
   title: {
     flexGrow: 1,
@@ -56,8 +74,15 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "5px",
   },
   tagBar: {
+    marginTop: " 86px",
     backgroundColor: "#FFFFFF",
     color: "#000000",
+    [theme.breakpoints.up("lg")]: {
+      transition: theme.transitions.create(["padding", "width"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
   },
   iconButtonLabel: {
     display: "flex",
@@ -69,9 +94,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FilterDrawer() {
+export default function FilterDrawer({ open, setOpen }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const { handleSubmit, reset, control } = useForm();
+  const [sliderVal, setSliderVal] = useState(20);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,15 +107,17 @@ export default function FilterDrawer() {
     setOpen(false);
   };
 
+  console.log(sliderVal);
+
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position='relative' elevation={0} className={classes.tagBar}>
-        <Toolbar maxWid>
+      <div className={clsx(classes.tagBar, { [classes.tagBarShift]: open })}>
+        <Toolbar>
           <Button
             color='inherit'
             onClick={handleDrawerOpen}
-            className={classes.menuButton}
+            className={clsx(classes.menuButton, open && classes.hide)}
             variant='outlined'
           >
             Filter
@@ -98,7 +126,7 @@ export default function FilterDrawer() {
             Filter drawer
           </Typography>
         </Toolbar>
-      </AppBar>
+      </div>
       <Drawer
         variant='persistent'
         anchor='left'
@@ -107,48 +135,42 @@ export default function FilterDrawer() {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
-          <Typography variant='h4' className={classes.title}>
-            FILTERS
-          </Typography>
-          <IconButton classes={{ label: classes.iconButtonLabel }} size='small'>
-            <Delete />
-            <Typography className={classes.tinyLabel}>Clear All</Typography>
-          </IconButton>
-          <IconButton
-            onClick={handleDrawerClose}
-            classes={{ label: classes.iconButtonLabel }}
-            size='small'
+        <Scrollbars width={240}>
+          <form
+            noValidate
+            onSubmit={handleSubmit((data) => {
+              alert(JSON.stringify(data));
+            })}
           >
-            <CloseSharp />
-            <Typography className={classes.tinyLabel}>Hide</Typography>
-          </IconButton>
-        </div>
-        <Divider />
-        <FilterSelect />
-        <FilterSlider />
-        <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Inbox /> : <Mail />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <Inbox /> : <Mail />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+            <div className={classes.drawerHeader}>
+              <Typography variant='h4' className={classes.title}>
+                FILTERS
+              </Typography>
+              <IconButton
+                classes={{ label: classes.iconButtonLabel }}
+                size='small'
+                onClick={() => reset()}
+              >
+                <Delete />
+                <Typography className={classes.tinyLabel}>Clear All</Typography>
+              </IconButton>
+              <IconButton
+                onClick={handleDrawerClose}
+                classes={{ label: classes.iconButtonLabel }}
+                size='small'
+              >
+                <ChevronLeft />
+                <Typography className={classes.tinyLabel}>Hide</Typography>
+              </IconButton>
+            </div>
+            <Divider />
+            <FilterSelect control={control} />
+            <FilterSlider control={control} />
+            <Divider />
+            <FilterList control={control} />
+            <Divider />
+          </form>
+        </Scrollbars>
       </Drawer>
     </div>
   );

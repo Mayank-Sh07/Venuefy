@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   floatingNav: {
     borderRadius: "1.75em",
-    border: "0.3px solid white",
+    // border: "0.3px solid white",
     boxShadow: `0px 3px 0px -6px rgba(255,255,255,0.2), 0px 0px 10px 1px rgba(255,255,255,0.14), 0px -1px 6px 3px rgba(255,255,255,0.12)`,
     overflow: "hidden",
   },
@@ -97,21 +97,21 @@ export default function HeaderMobile({ currentPath }) {
               icon={<Home />}
               classes={{ selected: classes.selectedBottom }}
             />
-            <Divider orientation='vertical' flexItem />
+            {/* <Divider orientation='vertical' flexItem /> */}
             <BottomNavigationAction
               value='/Contact'
               label='Contact'
               icon={<ContactMail />}
               classes={{ selected: classes.selectedBottom }}
             />
-            <Divider orientation='vertical' flexItem />
+            {/* <Divider orientation='vertical' flexItem /> */}
             <BottomNavigationAction
               value='/Blog'
               label='Blog'
               icon={<Book />}
               classes={{ selected: classes.selectedBottom }}
             />
-            <Divider orientation='vertical' flexItem />
+            {/* <Divider orientation='vertical' flexItem /> */}
             <BottomNavigationAction
               value='/Account'
               label='Account'
@@ -176,8 +176,8 @@ export default function HeaderMobile({ currentPath }) {
                   icon={
                     <WhatsApp
                       style={{
-                        color: "white",
-                        backgroundColor: "#25D366",
+                        color: "#25D366",
+                        // backgroundColor: "white",
                         fontSize: "18px",
                       }}
                     />

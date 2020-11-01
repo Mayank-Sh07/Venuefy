@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "2em",
     backgroundColor: theme.palette.primary.main,
     width: "80%",
-    maxWidth: "768px",
+    maxWidth: "668px",
     margin: "100px auto 0px",
     [theme.breakpoints.only("xs")]: {
       width: "90%",
@@ -141,117 +141,39 @@ function HomeTagSection({ location }) {
               alignItems='center'
               className={classes.topBarGC}
             >
-              <Grid item xs={4} sm={4} md={4} className={classes.topBarGI}>
-                <TextField
-                  id='city-inp-field'
-                  select
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        <LocationCity />
-                      </InputAdornment>
-                    ),
-                  }}
-                  fullWidth
-                  defaultValue='detected-city'
-                >
-                  <MenuItem value='detected-city'>{location.city}</MenuItem>
-                  {cities.map((city) => (
-                    <MenuItem key={uuid()} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <Divider
-                  variant='middle'
-                  orientation='vertical'
-                  flexItem
-                  component='div'
-                  className={classes.divider}
-                />
-              </Grid>
-              <Grid item xs={5} sm={5} md={5} className={classes.topBarGI}>
-                <TextField
-                  id='area-inp-field'
-                  select
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        <Map />
-                      </InputAdornment>
-                    ),
-                  }}
-                  fullWidth
-                  defaultValue='detected-area'
-                >
-                  <MenuItem value='detected-area'>{location.area}</MenuItem>
-                  {cities.map((city) => (
-                    <MenuItem key={uuid()} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <Divider
-                  variant='middle'
-                  orientation='vertical'
-                  flexItem
-                  component='div'
-                  className={classes.divider}
-                />
-              </Grid>
-              <Grid item xs={3} sm={3} md={3} className={classes.topBarGI}>
-                <Button fullWidth startIcon={<Search />}>
-                  Nearby
-                </Button>
-                <IconButton
-                  style={{ marginleft: "16px" }}
-                  onClick={refreshPage}
-                >
-                  <MyLocation />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </form>
-        </Hidden>
-
-        <Hidden smUp>
-          <form noValidate autoComplete='off'>
-            <Grid container justify='center' alignItems='center'>
-              <Grid item xs={4} className={classes.topBarGI}>
-                <TextField
-                  id='city-inp-field'
-                  select
-                  size='small'
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        <LocationCity />
-                      </InputAdornment>
-                    ),
-                  }}
-                  fullWidth
-                  defaultValue='detected-city'
-                >
-                  <MenuItem value='detected-city'>{location.city}</MenuItem>
-                  {cities.map((city) => (
-                    <MenuItem key={uuid()} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <Divider
-                  variant='middle'
-                  orientation='vertical'
-                  flexItem
-                  component='div'
-                  className={classes.divider}
-                />
-              </Grid>
               <Grid item xs={5} className={classes.topBarGI}>
                 <TextField
+                  id='city-inp-field'
+                  select
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationCity />
+                      </InputAdornment>
+                    ),
+                  }}
+                  fullWidth
+                  defaultValue='detected-city'
+                >
+                  <MenuItem value='detected-city'>{location.city}</MenuItem>
+                  {cities.map((city) => (
+                    <MenuItem key={uuid()} value={city}>
+                      {city}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <Divider
+                  variant='middle'
+                  orientation='vertical'
+                  flexItem
+                  component='div'
+                  className={classes.divider}
+                />
+              </Grid>
+              {/* <Grid item xs={5} sm={5} md={5} className={classes.topBarGI}>
+                <TextField
                   id='area-inp-field'
                   select
-                  size='small'
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position='start'>
@@ -276,14 +198,19 @@ function HomeTagSection({ location }) {
                   component='div'
                   className={classes.divider}
                 />
-              </Grid>
-              <Grid item xs={3} className={classes.topBarGI}>
-                <IconButton type='button' className={classes.tagIcon}>
-                  <Search />
-                </IconButton>
-                <IconButton className={classes.tagIcon} onClick={refreshPage}>
-                  <MyLocation />
-                </IconButton>
+              </Grid> */}
+              <Grid item xs={7} className={classes.topBarGI}>
+                <Button fullWidth startIcon={<Search />}>
+                  SEARCH NEARBY
+                </Button>
+                <Button
+                  startIcon={<MyLocation />}
+                  style={{ marginleft: "16px" }}
+                  onClick={refreshPage}
+                  fullWidth
+                >
+                  RE-LOCATE
+                </Button>
               </Grid>
             </Grid>
           </form>

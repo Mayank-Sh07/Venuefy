@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
       height: "1100px",
     },
   },
+
   carouselContainerBG: {
     backgroundColor: theme.palette.secondary.light,
     height: "100px",
