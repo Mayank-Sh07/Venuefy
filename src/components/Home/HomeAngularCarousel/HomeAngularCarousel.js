@@ -184,7 +184,7 @@ function HomeAngularCarousel() {
         maxWidth={false}
       >
         <div className={classes.angularCarouselContainer}>
-          <div className={classes.flexTitle}>
+          {/* <div className={classes.flexTitle}>
             <Typography
               variant='h5'
               className={classes.secondaryTitle}
@@ -200,13 +200,16 @@ function HomeAngularCarousel() {
             >
               Banquets
             </Typography>
-          </div>
+          </div> */}
+          <br />
+          <br />
+
           <div
             className={clsx(classes.sliderContainer, classes.carouselHeight)}
           >
             <SliderWithImgs data={venueData} classes={classes} type='primary' />
           </div>
-          <div className={classes.flexTitle}>
+          {/* <div className={classes.flexTitle}>
             <Typography
               variant='h5'
               className={classes.primaryTitle}
@@ -221,7 +224,10 @@ function HomeAngularCarousel() {
             >
               Pubs
             </Typography>
-          </div>
+          </div> */}
+          <br />
+          <br />
+
           <div
             className={clsx(classes.sliderContainer, classes.carouselHeight)}
           >

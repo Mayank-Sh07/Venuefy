@@ -201,7 +201,7 @@ function HomeTagSection({ location }) {
               </Grid> */}
               <Grid item xs={7} className={classes.topBarGI}>
                 <Button fullWidth startIcon={<Search />}>
-                  SEARCH NEARBY
+                  SEARCH
                 </Button>
                 <Button
                   startIcon={<MyLocation />}
@@ -209,7 +209,7 @@ function HomeTagSection({ location }) {
                   onClick={refreshPage}
                   fullWidth
                 >
-                  RE-LOCATE
+                  NEARBY
                 </Button>
               </Grid>
             </Grid>

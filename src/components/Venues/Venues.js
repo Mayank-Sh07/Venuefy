@@ -1,186 +1,471 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
-import FilterDrawer from "./FilterDrawer/FilterDrawer";
-import { Container, makeStyles, Drawer } from "@material-ui/core";
+import { v4 as uuid } from "uuid";
+import { useForm, Controller } from "react-hook-form";
+import { Scrollbars } from "react-custom-scrollbars";
+// import axios from "axios";
+import {
+  makeStyles,
+  useTheme,
+  useMediaQuery,
+  Container,
+  Drawer,
+  Grid,
+  Button,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Slider,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Checkbox,
+  ListItemIcon,
+  ListSubheader,
+  Hidden,
+  Fab,
+  Chip,
+  Paper,
+} from "@material-ui/core";
+import { Delete, ChevronLeft, FilterList } from "@material-ui/icons";
+import "./selectOverrides.css";
 
 const useStyles = makeStyles((theme) => ({
-  filterOpen: {
+  root: {
+    display: "flex",
+    flexGrow: 1,
+  },
+  filterFloat: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+    [theme.breakpoints.down("xs")]: {
+      bottom: theme.spacing(8),
+      right: theme.spacing(1),
+    },
+  },
+  onFilterOpen: {
     [theme.breakpoints.up("lg")]: {
-      transition: theme.transitions.create("padding", {
+      transition: theme.transitions.create(["padding"], {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: 200,
       }),
       paddingLeft: "250px",
     },
   },
-  venueContainer: {
+  onFilterClose: {
     [theme.breakpoints.up("lg")]: {
-      transition: theme.transitions.create("padding", {
+      transition: theme.transitions.create(["padding"], {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: 225,
       }),
+      padding: 0,
     },
   },
-  abs: {
-    position: "absolute",
+  drawerPaper: {
+    width: "250px",
+    position: "fixed",
+    top: "92px",
+    border: `0.2px solid ${theme.palette.secondary.main}`,
+    borderLeft: "none",
+    overflowY: "hidden",
+    overflowX: "scroll",
+    [theme.breakpoints.only("xs")]: {
+      top: "0px",
+    },
+  },
+  actionBar: {
+    backgroundColor: "brown",
+    minHeight: "64px",
+    marginTop: "2px",
+    padding: "0px 15px",
+  },
+  tagContainer: {
+    display: "flex",
+    flexGrow: 1,
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+    minHeight: "40px",
+    overflow: "auto",
+  },
+  tag: {
+    margin: theme.spacing(0.5),
+  },
+  filterForm: {
+    height: "inherit",
+  },
+  drawerHeader: {
+    backgroundColor: theme.palette.primary.dark,
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(1),
+  },
+  iconButton: {
+    marginLeft: "6px",
+  },
+  iconButtonLabel: {
+    display: "flex",
+    flexDirection: "column",
+    minWidth: "36px",
+    fontSize: "0.5em",
+  },
+  selectFormControl: {
+    minWidth: 220,
+    borderRadius: "2em",
+    margin: "15px 0px 25px 10px",
+  },
+  selectLabel: {
+    color: "#FFFFFF !important",
+  },
+  selectRoot: {
+    borderRadius: "2em",
+    "&:focus": {
+      borderRadius: "2em",
+    },
+  },
+  sliderRoot: {
+    width: 220,
+    padding: "10px 0px 10px 15px",
+  },
+  listHeader: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.secondary.main,
+    fontSize: "18px",
+  },
+  listIcon: {
+    minWidth: "0px",
+    paddingLeft: "10px",
+  },
+  listUl: {
+    padding: "0px",
   },
 }));
 
+const tags = [
+  { key: uuid(), label: "test1" },
+  { key: uuid(), label: "test2" },
+  { key: uuid(), label: "test3" },
+  { key: uuid(), label: "test4" },
+  { key: uuid(), label: "test5" },
+  { key: uuid(), label: "test1" },
+  { key: uuid(), label: "test2" },
+  { key: uuid(), label: "test3" },
+  { key: uuid(), label: "test4" },
+  { key: uuid(), label: "test5" },
+  { key: uuid(), label: "test1" },
+  { key: uuid(), label: "test2" },
+  { key: uuid(), label: "test3" },
+  { key: uuid(), label: "test4" },
+  { key: uuid(), label: "test5" },
+  { key: uuid(), label: "test1" },
+  { key: uuid(), label: "test2" },
+  { key: uuid(), label: "test3" },
+  { key: uuid(), label: "test4" },
+  { key: uuid(), label: "test5" },
+];
+
+const selectMarks = [
+  {
+    value: 1,
+    label: "50",
+  },
+  {
+    value: 2,
+    label: "100",
+  },
+  {
+    value: 3,
+    label: "200",
+  },
+  {
+    value: 4,
+    label: "300",
+  },
+  {
+    value: 5,
+    label: "500",
+  },
+  {
+    value: 6,
+    label: "1000",
+  },
+  {
+    value: 7,
+    label: "1000+",
+  },
+];
+
+const capacity = (val) => {
+  switch (val) {
+    case 0:
+      return <small style={{ fontSize: "0.7em" }}>0</small>;
+    case 1:
+      return <small style={{ fontSize: "0.7em" }}>50</small>;
+    case 2:
+      return <small style={{ fontSize: "0.7em" }}>100</small>;
+    case 3:
+      return <small style={{ fontSize: "0.7em" }}>200</small>;
+    case 4:
+      return <small style={{ fontSize: "0.7em" }}>300</small>;
+    case 5:
+      return <small style={{ fontSize: "0.7em" }}>500</small>;
+    case 6:
+      return <small style={{ fontSize: "0.7em" }}>1000</small>;
+    default:
+      return <small style={{ fontSize: "0.7em" }}>1000+</small>;
+  }
+};
+
+const listData = [
+  {
+    header: "Venue Type",
+    checkboxes: [
+      { label: "Banquet Hall", name: "Banquet_Hall" },
+      { label: "Pub", name: "Pubs" },
+      { label: "Resort", name: "Resorts" },
+      { label: "Hotel Banquet", name: "Hotel_Banquet" },
+      { label: "Rooftop", name: "Rooftop" },
+      { label: "Open Space", name: "Open_Area" },
+    ],
+  },
+  {
+    header: "Venue Features",
+    checkboxes: [
+      { label: "Only Veg", name: "Only_veg" },
+      { label: "Pool side", name: "Pool_side" },
+      { label: "Roof Top", name: "Roof_top" },
+      { label: "Open Space", name: "Open_Space" },
+      { label: "Indoor", name: "Indoor" },
+      { label: "Lawn", name: "Lawn" },
+      { label: "Parking Available", name: "Parking_available" },
+      { label: "Air Conditioner", name: "Air_conditioner" },
+      { label: "Alcohol", name: "Alcohol" },
+    ],
+  },
+];
+
+const getData = (setData) => {
+  fetch("venueData.json", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  }).then(function (response) {
+    response.json().then((data) => setData(data));
+  });
+};
+
 export default function Venues() {
   const classes = useStyles();
-  const [isFliterOpen, setFilterOpen] = useState(false);
-  console.log(isFliterOpen);
-  return (
-    <Container
-      disableGutters
-      maxWidth={false}
-      id='drawer-container'
-      style={{ backgroundColor: "black" }}
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"), {
+    defaultMatches: true,
+  });
+  const { handleSubmit, control, reset } = useForm();
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [fetchCount, triggerFetch] = useState(1);
+  const [venueData, setVenueData] = useState([]);
+  const [tagData, setTagData] = React.useState(tags);
+
+  useEffect(() => {
+    console.log(`data fetched ${fetchCount} times`);
+    getData(setVenueData);
+  }, [fetchCount]);
+
+  const deleteTag = (tagToDelete) => () => {
+    setTagData((tags) => tags.filter((tag) => tag.key !== tagToDelete.key));
+  };
+
+  const filterForm = (
+    <form
+      noValidate
+      className={classes.filterForm}
+      onSubmit={handleSubmit((data) => {
+        alert(JSON.stringify(data));
+        triggerFetch(fetchCount + 1);
+      })}
     >
-      <FilterDrawer open={isFliterOpen} setOpen={setFilterOpen} />
+      <div className={classes.drawerHeader}>
+        <Button variant='outlined' color='secondary' fullWidth type='submit'>
+          Apply
+        </Button>
+        <IconButton
+          classes={{ label: classes.iconButtonLabel }}
+          className={classes.iconButton}
+        >
+          <Delete />
+          <div>Clear All</div>
+        </IconButton>
+        <IconButton
+          classes={{ label: classes.iconButtonLabel }}
+          className={classes.iconButton}
+          onClick={() => setFilterOpen(false)}
+        >
+          <ChevronLeft />
+          <div>Hide</div>
+        </IconButton>
+      </div>
+      <Scrollbars width={240}>
+        <div id='FILTER--SELECT'>
+          <FormControl
+            size='small'
+            variant='outlined'
+            classes={{ root: classes.selectFormControl }}
+          >
+            <InputLabel className={classes.selectLabel}>Location</InputLabel>
+            <Controller
+              as={
+                <Select
+                  classes={{ root: classes.selectRoot }}
+                  inputProps={{ style: { borderRadius: "2em" } }}
+                >
+                  <MenuItem value={"Delhi"}>Delhi</MenuItem>
+                  <MenuItem value={"Chennai"}>Chennai</MenuItem>
+                  <MenuItem value={"Kolkata"}>Kolkata</MenuItem>
+                </Select>
+              }
+              name='location'
+              control={control}
+            />
+          </FormControl>
+        </div>
+        <div id='FILTER--SLIDER' className={classes.sliderRoot}>
+          <Typography>Guest Capacity</Typography>
+          <Controller
+            name='Guest capacity'
+            control={control}
+            defaultValue={[0, 7]}
+            render={(props) => (
+              <Slider
+                {...props}
+                onChange={(_, value) => {
+                  props.onChange(value);
+                }}
+                valueLabelDisplay='auto'
+                color='secondary'
+                valueLabelFormat={(val) => capacity(val)}
+                step={1}
+                max={7}
+                marks={selectMarks}
+                classes={{ markLabel: classes.iconButtonLabel }}
+              />
+            )}
+          />
+        </div>
+        <div key='FILTER--LIST'>
+          <List subheader={<li />}>
+            {listData.map((section) => (
+              <li
+                key={`list-head-${section.header}`}
+                className={classes.listSection}
+              >
+                <ul className={classes.listUl}>
+                  <ListSubheader className={classes.listHeader}>
+                    {section.header}
+                  </ListSubheader>
+                  {section.checkboxes.map((checkbox) => (
+                    <ListItem
+                      key={`item-${section.header}-${checkbox.name}`}
+                      dense
+                      button
+                    >
+                      <ListItemIcon classes={{ root: classes.listIcon }}>
+                        <Controller
+                          name={checkbox.name}
+                          control={control}
+                          render={(props) => (
+                            <Checkbox
+                              onChange={(e) => props.onChange(e.target.checked)}
+                              checked={props.value}
+                              disableRipple
+                            />
+                          )}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary={checkbox.label} />
+                    </ListItem>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </List>
+        </div>
+      </Scrollbars>
+    </form>
+  );
+
+  if (venueData === [] || venueData.length === 0) {
+    return <h1>Loading...</h1>;
+  }
+
+  return (
+    <div className={classes.root}>
+      <Drawer
+        variant={isMobile ? "temporary" : "persistent"}
+        anchor='left'
+        open={filterOpen}
+        classes={{ paper: classes.drawerPaper }}
+      >
+        {filterForm}
+      </Drawer>
       <Container
-        style={{ color: "black", backgroundColor: "white" }}
+        disableGutters
         maxWidth={false}
-        className={clsx(classes.venueContainer, {
-          [classes.filterOpen]: isFliterOpen,
+        style={{ height: "100vh" }}
+        className={clsx({
+          [classes.onFilterOpen]: filterOpen,
+          [classes.onFilterClose]: !filterOpen,
         })}
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Non consectetur a
-        erat nam at. Volutpat commodo sed egestas egestas fringilla phasellus
-        faucibus scelerisque. Id cursus metus aliquam eleifend. Ornare quam
-        viverra orci sagittis eu volutpat odio facilisis mauris. Hac habitasse
-        platea dictumst quisque sagittis purus. Et ultrices neque ornare aenean
-        euismod. Facilisi cras fermentum odio eu feugiat pretium nibh ipsum.
-        Blandit massa enim nec dui nunc mattis. Nulla pharetra diam sit amet
-        nisl suscipit adipiscing. Faucibus et molestie ac feugiat sed lectus
-        vestibulum mattis. Et malesuada fames ac turpis egestas. At urna
-        condimentum mattis pellentesque id nibh. Enim nec dui nunc mattis enim.
-        Elementum nisi quis eleifend quam adipiscing. Malesuada fames ac turpis
-        egestas sed tempus urna et. Urna duis convallis convallis tellus. Sit
-        amet tellus cras adipiscing enim eu. Amet nulla facilisi morbi tempus
-        iaculis urna id. Risus ultricies tristique nulla aliquet enim tortor at.
-        Scelerisque purus semper eget duis at. Augue lacus viverra vitae congue.
-        Adipiscing at in tellus integer feugiat scelerisque varius morbi enim.
-        Lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique.
-        Nisi scelerisque eu ultrices vitae auctor eu. Ullamcorper malesuada
-        proin libero nunc consequat interdum varius sit amet. Fringilla urna
-        porttitor rhoncus dolor purus non enim praesent. Aliquam ultrices
-        sagittis orci a scelerisque purus semper eget duis. Cras sed felis eget
-        velit aliquet sagittis. Duis convallis convallis tellus id interdum
-        velit laoreet id donec. Massa massa ultricies mi quis hendrerit dolor.
-        Aliquet sagittis id consectetur purus ut faucibus pulvinar elementum
-        integer. Molestie nunc non blandit massa enim nec dui nunc mattis. A
-        iaculis at erat pellentesque adipiscing commodo elit at. Dui vivamus
-        arcu felis bibendum ut tristique et egestas. Semper feugiat nibh sed
-        pulvinar. Dui vivamus arcu felis bibendum ut tristique et egestas quis.
-        Suspendisse ultrices gravida dictum fusce ut placerat orci. Ornare
-        aenean euismod elementum nisi. Nulla posuere sollicitudin aliquam
-        ultrices sagittis. Dictum sit amet justo donec enim diam. Risus nullam
-        eget felis eget nunc. At risus viverra adipiscing at in tellus integer.
-        Semper viverra nam libero justo laoreet. Eu lobortis elementum nibh
-        tellus. Ac tincidunt vitae semper quis lectus. Duis ut diam quam nulla.
-        In iaculis nunc sed augue lacus viverra. Ut placerat orci nulla
-        pellentesque dignissim enim sit amet venenatis. Non consectetur a erat
-        nam at lectus urna duis convallis. Tincidunt tortor aliquam nulla
-        facilisi cras fermentum odio eu feugiat. Ut lectus arcu bibendum at
-        varius vel. At in tellus integer feugiat scelerisque. Sed euismod nisi
-        porta lorem mollis aliquam ut porttitor leo. Aliquam sem fringilla ut
-        morbi tincidunt augue interdum. Nisi vitae suscipit tellus mauris a
-        diam. Non curabitur gravida arcu ac tortor dignissim. Cras tincidunt
-        lobortis feugiat vivamus at augue. Purus faucibus ornare suspendisse
-        sed. Tristique senectus et netus et malesuada fames ac turpis. Habitasse
-        platea dictumst quisque sagittis purus sit amet volutpat. Vel turpis
-        nunc eget lorem dolor. Pharetra sit amet aliquam id diam maecenas.
-        Mauris pharetra et ultrices neque. Quis lectus nulla at volutpat diam ut
-        venenatis. Nulla facilisi morbi tempus iaculis urna id volutpat lacus
-        laoreet. Aliquet bibendum enim facilisis gravida neque convallis a. Dis
-        parturient montes nascetur ridiculus mus mauris vitae. Volutpat odio
-        facilisis mauris sit amet massa vitae. Scelerisque eu ultrices vitae
-        auctor eu augue ut lectus. Nunc mi ipsum faucibus vitae aliquet nec
-        ullamcorper sit. Condimentum id venenatis a condimentum vitae sapien
-        pellentesque. Eget mi proin sed libero enim sed faucibus turpis in.
-        Porttitor leo a diam sollicitudin tempor id eu. Sed vulputate mi sit
-        amet mauris commodo. Diam sollicitudin tempor id eu nisl nunc mi ipsum
-        faucibus. Nunc vel risus commodo viverra maecenas accumsan lacus vel
-        facilisis. Dictum non consectetur a erat nam. Aliquet sagittis id
-        consectetur purus ut. At imperdiet dui accumsan sit amet nulla facilisi
-        morbi. Facilisi morbi tempus iaculis urna id. Tellus cras adipiscing
-        enim eu turpis. Diam vel quam elementum pulvinar. Condimentum lacinia
-        quis vel eros donec ac odio tempor. Mattis ullamcorper velit sed
-        ullamcorper morbi tincidunt ornare. Mi ipsum faucibus vitae aliquet nec
-        ullamcorper sit amet risus. Lacus luctus accumsan tortor posuere ac ut.
-        Ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Mattis
-        vulputate enim nulla aliquet porttitor. Tortor dignissim convallis
-        aenean et tortor at risus. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Non consectetur a erat nam at. Volutpat commodo sed
-        egestas egestas fringilla phasellus faucibus scelerisque. Id cursus
-        metus aliquam eleifend. Ornare quam viverra orci sagittis eu volutpat
-        odio facilisis mauris. Hac habitasse platea dictumst quisque sagittis
-        purus. Et ultrices neque ornare aenean euismod. Facilisi cras fermentum
-        odio eu feugiat pretium nibh ipsum. Blandit massa enim nec dui nunc
-        mattis. Nulla pharetra diam sit amet nisl suscipit adipiscing. Faucibus
-        et molestie ac feugiat sed lectus vestibulum mattis. Et malesuada fames
-        ac turpis egestas. At urna condimentum mattis pellentesque id nibh. Enim
-        nec dui nunc mattis enim. Elementum nisi quis eleifend quam adipiscing.
-        Malesuada fames ac turpis egestas sed tempus urna et. Urna duis
-        convallis convallis tellus. Sit amet tellus cras adipiscing enim eu.
-        Amet nulla facilisi morbi tempus iaculis urna id. Risus ultricies
-        tristique nulla aliquet enim tortor at. Scelerisque purus semper eget
-        duis at. Augue lacus viverra vitae congue. Adipiscing at in tellus
-        integer feugiat scelerisque varius morbi enim. Lorem ipsum dolor sit
-        amet consectetur adipiscing elit duis tristique. Nisi scelerisque eu
-        ultrices vitae auctor eu. Ullamcorper malesuada proin libero nunc
-        consequat interdum varius sit amet. Fringilla urna porttitor rhoncus
-        dolor purus non enim praesent. Aliquam ultrices sagittis orci a
-        scelerisque purus semper eget duis. Cras sed felis eget velit aliquet
-        sagittis. Duis convallis convallis tellus id interdum velit laoreet id
-        donec. Massa massa ultricies mi quis hendrerit dolor. Aliquet sagittis
-        id consectetur purus ut faucibus pulvinar elementum integer. Molestie
-        nunc non blandit massa enim nec dui nunc mattis. A iaculis at erat
-        pellentesque adipiscing commodo elit at. Dui vivamus arcu felis bibendum
-        ut tristique et egestas. Semper feugiat nibh sed pulvinar. Dui vivamus
-        arcu felis bibendum ut tristique et egestas quis. Suspendisse ultrices
-        gravida dictum fusce ut placerat orci. Ornare aenean euismod elementum
-        nisi. Nulla posuere sollicitudin aliquam ultrices sagittis. Dictum sit
-        amet justo donec enim diam. Risus nullam eget felis eget nunc. At risus
-        viverra adipiscing at in tellus integer. Semper viverra nam libero justo
-        laoreet. Eu lobortis elementum nibh tellus. Ac tincidunt vitae semper
-        quis lectus. Duis ut diam quam nulla. In iaculis nunc sed augue lacus
-        viverra. Ut placerat orci nulla pellentesque dignissim enim sit amet
-        venenatis. Non consectetur a erat nam at lectus urna duis convallis.
-        Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu feugiat.
-        Ut lectus arcu bibendum at varius vel. At in tellus integer feugiat
-        scelerisque. Sed euismod nisi porta lorem mollis aliquam ut porttitor
-        leo. Aliquam sem fringilla ut morbi tincidunt augue interdum. Nisi vitae
-        suscipit tellus mauris a diam. Non curabitur gravida arcu ac tortor
-        dignissim. Cras tincidunt lobortis feugiat vivamus at augue. Purus
-        faucibus ornare suspendisse sed. Tristique senectus et netus et
-        malesuada fames ac turpis. Habitasse platea dictumst quisque sagittis
-        purus sit amet volutpat. Vel turpis nunc eget lorem dolor. Pharetra sit
-        amet aliquam id diam maecenas. Mauris pharetra et ultrices neque. Quis
-        lectus nulla at volutpat diam ut venenatis. Nulla facilisi morbi tempus
-        iaculis urna id volutpat lacus laoreet. Aliquet bibendum enim facilisis
-        gravida neque convallis a. Dis parturient montes nascetur ridiculus mus
-        mauris vitae. Volutpat odio facilisis mauris sit amet massa vitae.
-        Scelerisque eu ultrices vitae auctor eu augue ut lectus. Nunc mi ipsum
-        faucibus vitae aliquet nec ullamcorper sit. Condimentum id venenatis a
-        condimentum vitae sapien pellentesque. Eget mi proin sed libero enim sed
-        faucibus turpis in. Porttitor leo a diam sollicitudin tempor id eu. Sed
-        vulputate mi sit amet mauris commodo. Diam sollicitudin tempor id eu
-        nisl nunc mi ipsum faucibus. Nunc vel risus commodo viverra maecenas
-        accumsan lacus vel facilisis. Dictum non consectetur a erat nam. Aliquet
-        sagittis id consectetur purus ut. At imperdiet dui accumsan sit amet
-        nulla facilisi morbi. Facilisi morbi tempus iaculis urna id. Tellus cras
-        adipiscing enim eu turpis. Diam vel quam elementum pulvinar. Condimentum
-        lacinia quis vel eros donec ac odio tempor. Mattis ullamcorper velit sed
-        ullamcorper morbi tincidunt ornare. Mi ipsum faucibus vitae aliquet nec
-        ullamcorper sit amet risus. Lacus luctus accumsan tortor posuere ac ut.
-        Ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Mattis
-        vulputate enim nulla aliquet porttitor. Tortor dignissim convallis
-        aenean et tortor at risus.
+        <Hidden mdUp>
+          <Fab
+            color='secondary'
+            size='large'
+            className={classes.filterFloat}
+            onClick={() => setFilterOpen(true)}
+          >
+            <FilterList />
+          </Fab>
+        </Hidden>
+        <Grid container alignItems='center' className={classes.actionBar}>
+          <Hidden smDown>
+            <Grid item xs={1}>
+              <Button
+                variant='contained'
+                onClick={() => setFilterOpen(true)}
+                fullWidth
+              >
+                Filter
+              </Button>
+            </Grid>
+          </Hidden>
+          <Grid item xs={11}>
+            <div style={{ width: "100%", height: "45px", overflowY: "hidden" }}>
+              <Paper
+                component='ul'
+                className={clsx(classes.tagContainer)}
+                style={{ paddingBottom: "30px" }}
+              >
+                {tagData.map((data) => {
+                  return (
+                    <li key={data.key}>
+                      <Chip
+                        label={data.label}
+                        onDelete={deleteTag(data)}
+                        className={classes.tag}
+                      />
+                    </li>
+                  );
+                })}
+              </Paper>
+            </div>
+          </Grid>
+        </Grid>
       </Container>
-    </Container>
+    </div>
   );
 }
