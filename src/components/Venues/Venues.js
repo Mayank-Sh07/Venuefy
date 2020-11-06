@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
+import ImageGallery from "react-image-gallery";
 import {
   makeStyles,
   useTheme,
@@ -14,9 +15,17 @@ import {
   Fab,
   Chip,
   Paper,
+  Card,
+  CardHeader,
+  CardContent,
+  IconButton,
+  Typography,
+  Box,
 } from "@material-ui/core";
-import { FilterList } from "@material-ui/icons";
+import Rating from "@material-ui/lab/Rating";
+import { FilterList, Favorite } from "@material-ui/icons";
 import FilterForm from "./Filter/FilterForm";
+import "./image-gallery.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +88,35 @@ const useStyles = makeStyles((theme) => ({
   tag: {
     margin: theme.spacing(0.5),
   },
+  venueContainer: {
+    padding: "15px",
+  },
+  imageCarousel: {
+    overflow: "hidden",
+  },
+  divider: {
+    height: "3px",
+    backgroundColor: "black",
+    width: "100%",
+    margin: "8px 0px 16px 0px",
+  },
+  venueDetails: {
+    padding: "0px 10px",
+    color: "black",
+  },
+  iconEmpty: {
+    color: `rgba(0,0,0,0.5)`,
+  },
 }));
+
+const photoSet = (baseURL, size) => {
+  baseURL = baseURL.replaceAll("<s>", "/");
+  let srcArr = [...Array(size).keys()].map((indx) => ({
+    original: baseURL + indx + "%40lb.jpeg",
+    thumbnail: baseURL + indx + "%40ps.jpeg",
+  }));
+  return srcArr;
+};
 
 const getData = (setData) => {
   fetch("venueData.json", {
@@ -88,7 +125,13 @@ const getData = (setData) => {
       Accept: "application/json",
     },
   }).then(function (response) {
-    response.json().then((data) => setData(data));
+    response.json().then((data) => {
+      data = data[0].table.map((venue) => ({
+        ...venue,
+        photos: photoSet(venue.photos, venue.nphotos),
+      }));
+      setData(data);
+    });
   });
 };
 
@@ -153,7 +196,6 @@ export default function Venues() {
       <Container
         disableGutters
         maxWidth={false}
-        style={{ height: "100vh" }}
         className={clsx({
           [classes.onFilterOpen]: filterOpen,
           [classes.onFilterClose]: !filterOpen,
@@ -204,6 +246,119 @@ export default function Venues() {
               </Paper>
             </div>
           </Grid>
+        </Grid>
+        <Grid container className={classes.venueContainer}>
+          {venueData.map((venue) => (
+            <>
+              <div className={classes.divider} />
+              <Grid item xs={12} sm={6} className={classes.imageCarousel}>
+                <ImageGallery
+                  items={venue.photos}
+                  showFullscreenButton={false}
+                  showPlayButton={false}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} className={classes.venueDetails}>
+                <Card
+                  elevation={0}
+                  style={{ backgroundColor: "white", color: "black" }}
+                >
+                  <CardHeader
+                    title={venue.name}
+                    subheader={venue.area + ", " + venue.city}
+                    subheaderTypographyProps={{ style: { color: "black" } }}
+                    action={
+                      <IconButton>
+                        <Favorite style={{ color: "red" }} />
+                      </IconButton>
+                    }
+                  />
+                  <div
+                    style={{
+                      maxWidth: "80%",
+                      margin: "auto",
+                      maxHeight: 130,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Grid container>
+                      <Grid
+                        item
+                        xs={9}
+                        sm={9}
+                        container
+                        justify={"space-around"}
+                        alignItems={"center"}
+                      >
+                        {[
+                          ...venue.amme,
+                          "xyz",
+                          "abx",
+                          "xae",
+                          "lol",
+                          "rapq",
+                          "faqu",
+                        ].map((ammenity) => (
+                          <Grid item xs={6} style={{ paddingRight: 10 }}>
+                            <Typography variant='subtitle1' gutterBottom noWrap>
+                              {ammenity}
+                            </Typography>
+                          </Grid>
+                        ))}
+                      </Grid>
+                      <Grid
+                        item
+                        xs={4}
+                        sm={3}
+                        container
+                        justify='center'
+                        alignItems='center'
+                      >
+                        more...
+                      </Grid>
+                    </Grid>
+                  </div>
+                  <CardContent
+                    style={{
+                      maxHeight: 130,
+                      paddingBottom: 0,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Box
+                      component='fieldset'
+                      mb={1}
+                      borderColor='transparent'
+                      style={{ display: "flex", paddingLeft: 0 }}
+                    >
+                      Rating:
+                      <Rating
+                        name='read-only'
+                        value={4}
+                        readOnly
+                        classes={{ iconEmpty: classes.iconEmpty }}
+                      />
+                    </Box>
+                    <Typography variant={"subtitle1"}>
+                      <b>{`Starting from ₹${venue.starting_price}`}</b> per
+                      person
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        width: "100%",
+                      }}
+                    >
+                      <Button color='primary' variant='outlined'>
+                        View Details
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </>
+          ))}
         </Grid>
       </Container>
     </div>
