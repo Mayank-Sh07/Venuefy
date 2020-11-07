@@ -1,20 +1,16 @@
 import React from "react";
-import {
-  makeStyles,
-  Grid,
-  Button,
-  IconButton,
-  Avatar,
-} from "@material-ui/core";
-import {
-  Mail,
-  Phone,
-  Instagram,
-  Facebook,
-  YouTube,
-  Twitter,
-  LinkedIn,
-} from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Avatar from "@material-ui/core/Avatar";
+import Mail from "@material-ui/icons/Mail";
+import Phone from "@material-ui/icons/Phone";
+import Instagram from "@material-ui/icons/Instagram";
+import Facebook from "@material-ui/icons/Facebook";
+import YouTube from "@material-ui/icons/YouTube";
+import Twitter from "@material-ui/icons/Twitter";
+import LinkedIn from "@material-ui/icons/LinkedIn";
 import TreeViewList from "../TreeView/TreeView";
 
 const useStyles = makeStyles((theme) => ({

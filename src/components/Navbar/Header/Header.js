@@ -1,16 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import logo from "./VenuefyLogo.png";
-import {
-  makeStyles,
-  AppBar,
-  Toolbar,
-  Button,
-  IconButton,
-  Tabs,
-  Tab,
-} from "@material-ui/core";
-import { WhatsApp, Phone } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Phone from "@material-ui/icons/Phone";
+import WhatsApp from "@material-ui/icons/WhatsApp";
 
 const useStyles = makeStyles((theme) => ({
   root: {

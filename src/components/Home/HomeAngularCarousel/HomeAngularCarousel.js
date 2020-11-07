@@ -1,7 +1,10 @@
 import React from "react";
-import { Container, makeStyles, Typography, Button } from "@material-ui/core";
 import Slider from "react-slick";
 import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
 import { v4 as uuid } from "uuid";
 
 // Title (42px) + Carousel (220px, 340px, 440px) => xs:265, sm:385, md:485

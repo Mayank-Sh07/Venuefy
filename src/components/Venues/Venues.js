@@ -256,6 +256,7 @@ export default function Venues() {
                   items={venue.photos}
                   showFullscreenButton={false}
                   showPlayButton={false}
+                  lazyLoad={true}
                 />
               </Grid>
               <Grid item xs={12} sm={6} className={classes.venueDetails}>

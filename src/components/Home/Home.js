@@ -1,5 +1,7 @@
 import React from "react";
-import { Container, makeStyles, Hidden } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
+import { makeStyles } from "@material-ui/core/styles";
+import Hidden from "@material-ui/core/Hidden";
 import HomeTagSection from "./HomeTagSection/HomeTagSection";
 import HomeAngularCarousel from "./HomeAngularCarousel/HomeAngularCarousel";
 import HomeAngularDescription from "./HomeAngularDescription/HomeAngularDescription";

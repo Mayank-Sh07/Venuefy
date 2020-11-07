@@ -1,5 +1,5 @@
 import React from "react";
-import { Hidden } from "@material-ui/core";
+import Hidden from "@material-ui/core/Hidden";
 import Header from "./Header/Header";
 import HeaderMobile from "./Header/HeaderMobile";
 import { useLocation } from "react-router-dom";

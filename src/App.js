@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Geocode from "react-geocode";
-import {
-  Navbar,
-  Home,
-  Venues,
-  Testimonials,
-  Vendors,
-  AboutUs,
-  Blog,
-  Footer,
-} from "./components";
 import { usePosition } from "use-position";
+import Geocode from "react-geocode";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Navbar/Footer/Footer";
+const Home = React.lazy(() => import("./components/Home/Home"));
+const Venues = React.lazy(() => import("./components/Venues/Venues"));
+const Testimonials = React.lazy(() =>
+  import("./components/Testimonials/Testimonials")
+);
+const Vendors = React.lazy(() => import("./components/Vendors/Vendors"));
+const AboutUs = React.lazy(() => import("./components/AboutUs/AboutUs"));
+const Blog = React.lazy(() => import("./components/Blog/Blog"));
 
 // disabled location finder for dev setup
 // Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
@@ -53,21 +53,24 @@ function App() {
     <div className='App'>
       <BrowserRouter>
         <Navbar />
-        <Switch>
-          <Route exact path='/Venues' render={(props) => <Venues />} />
-          <Route
-            exact
-            path='/Testimonials'
-            render={(props) => <Testimonials />}
-          />
-          <Route exact path='/Vendors' render={(props) => <Vendors />} />
-          <Route exact path='/About' render={(props) => <AboutUs />} />
-          <Route exact path='/Blog' render={(props) => <Blog />} />
-          <Route
-            path='/'
-            render={(props) => <Home {...props} location={location} />}
-          />
-        </Switch>
+        <React.Suspense fallback={<h2>Loading...</h2>}>
+          <Switch>
+            <Route exact path='/Venues' render={(props) => <Venues />} />
+            <Route
+              exact
+              path='/Testimonials'
+              render={(props) => <Testimonials />}
+            />
+            <Route exact path='/Vendors' render={(props) => <Vendors />} />
+            <Route exact path='/About' render={(props) => <AboutUs />} />
+            <Route exact path='/Blog' render={(props) => <Blog />} />
+            <Route
+              path='/'
+              render={(props) => <Home {...props} location={location} />}
+            />
+          </Switch>
+        </React.Suspense>
+
         <Footer />
       </BrowserRouter>
     </div>

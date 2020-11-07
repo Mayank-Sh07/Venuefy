@@ -1,26 +1,20 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import {
-  makeStyles,
-  AppBar,
-  BottomNavigation,
-  BottomNavigationAction,
-  Toolbar,
-  useScrollTrigger,
-  Slide,
-  Divider,
-} from "@material-ui/core";
-
-import {
-  LocationCity,
-  AccountCircle,
-  Money,
-  Home,
-  ContactMail,
-  Book,
-  WhatsApp,
-  Phone,
-} from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import Slide from "@material-ui/core/Slide";
+import Phone from "@material-ui/icons/Phone";
+import WhatsApp from "@material-ui/icons/WhatsApp";
+import LocationCity from "@material-ui/icons/LocationCity";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Money from "@material-ui/icons/Money";
+import Home from "@material-ui/icons/Home";
+import ContactMail from "@material-ui/icons/ContactMail";
+import Book from "@material-ui/icons/Book";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,19 +1,18 @@
 import React from "react";
-import {
-  Container,
-  makeStyles,
-  Typography,
-  Grid,
-  Paper,
-  Divider,
-  TextField,
-  MenuItem,
-  InputAdornment,
-  Button,
-  IconButton,
-  Hidden,
-} from "@material-ui/core";
-import { LocationCity, MyLocation, Map, Search } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
+import LocationCity from "@material-ui/icons/LocationCity";
+import MyLocation from "@material-ui/icons/MyLocation";
+import Search from "@material-ui/icons/Search";
 import { v4 as uuid } from "uuid";
 
 // tag-container(height) => md:"400px", lg:"500px"
