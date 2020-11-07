@@ -1,23 +1,23 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-import {
-  makeStyles,
-  Button,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
-  Slider,
-  Typography,
-  List,
-  ListItem,
-  Checkbox,
-  ListItemIcon,
-  ListSubheader,
-  FormControlLabel,
-} from "@material-ui/core";
-import { Delete, ChevronLeft } from "@material-ui/icons";
+import { v4 as uuid } from "uuid";
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import Typography from "@material-ui/core/Typography";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Slider from "@material-ui/core/Slider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Delete from "@material-ui/icons/Delete";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import "./cssOverrides.css";
 
 const useStyles = makeStyles((theme) => ({

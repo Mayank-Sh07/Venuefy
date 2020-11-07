@@ -3,27 +3,25 @@ import clsx from "clsx";
 import { v4 as uuid } from "uuid";
 import { useForm } from "react-hook-form";
 import ImageGallery from "react-image-gallery";
-import {
-  makeStyles,
-  useTheme,
-  useMediaQuery,
-  Container,
-  Drawer,
-  Grid,
-  Button,
-  Hidden,
-  Fab,
-  Chip,
-  Paper,
-  Card,
-  CardHeader,
-  CardContent,
-  IconButton,
-  Typography,
-  Box,
-} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Typography from "@material-ui/core/Typography";
+import Drawer from "@material-ui/core/Drawer";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
+import Fab from "@material-ui/core/Fab";
+import Chip from "@material-ui/core/Chip";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import IconButton from "@material-ui/core/IconButton";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
+import FilterList from "@material-ui/icons/FilterList";
+import Favorite from "@material-ui/icons/Favorite";
 import Rating from "@material-ui/lab/Rating";
-import { FilterList, Favorite } from "@material-ui/icons";
 import FilterForm from "./Filter/FilterForm";
 import "./image-gallery.scss";
 
