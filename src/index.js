@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import UserContextProvider from "./UserContext";
 import { ThemeProvider } from "@material-ui/core/styles";
 import venuefyTheme from "./Theme/theme";
+import "./index.css";
 
 ReactDOM.render(
-  <ThemeProvider theme={venuefyTheme}>
-    <App />
-  </ThemeProvider>,
+  <UserContextProvider>
+    <ThemeProvider theme={venuefyTheme}>
+      <App />
+    </ThemeProvider>
+  </UserContextProvider>,
   document.getElementById("root")
 );

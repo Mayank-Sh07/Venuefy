@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import logo from "./VenuefyLogo.png";
+import logo from "../VenuefyLogo.png";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -78,9 +78,7 @@ export default function Header({ currentPath }) {
             rel='noopener noreferrer'
           >
             <IconButton>
-              <WhatsApp
-                style={{ backgroundColor: "#25D366", color: "white" }}
-              />
+              <WhatsApp style={{ color: "#25D366" }} />
             </IconButton>
           </a>
           <a href='tel:+919007967777' style={{ textDecoration: "none" }}>

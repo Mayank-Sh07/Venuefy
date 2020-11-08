@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { UserContext } from "../../../UserContext";
+import { v4 as uuid } from "uuid";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -9,17 +11,14 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
 import LocationCity from "@material-ui/icons/LocationCity";
 import MyLocation from "@material-ui/icons/MyLocation";
 import Search from "@material-ui/icons/Search";
-import { v4 as uuid } from "uuid";
-
-// tag-container(height) => md:"400px", lg:"500px"
+import background from "./HomeTagBg.jpg";
 
 const useStyles = makeStyles((theme) => ({
   taglineContainer: {
-    backgroundImage: `url("imgs/header.jpg")`,
+    backgroundImage: `url(${background})`,
     position: "absolute",
     top: "120px",
     height: "500px",
@@ -35,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   tag: {
     textShadow: `0 0 4px black`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=1)`,
     fontWeight: "600",
     color: "#FFFFFF",
     [theme.breakpoints.only("xs")]: {
@@ -63,10 +61,9 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     backgroundColor: "#FFFFFF",
-    margin: "0px 14px",
-    [theme.breakpoints.only("xs")]: {
-      margin: "0px 4px",
-    },
+    margin: "4px 14px",
+    height: "28px",
+    width: "1px",
   },
   tagIcon: {
     marginleft: "2px",
@@ -74,52 +71,20 @@ const useStyles = makeStyles((theme) => ({
       padding: "4px",
     },
   },
+  linkStyles: {
+    textDecoration: "none",
+    width: "100%",
+  },
 }));
 
-const cities = [
-  "Andhra Pradesh",
-  "Arunachal Pradesh ",
-  "Assam",
-  "Bihar",
-  "Chhattisgarh",
-  "Goa",
-  "Gujarat",
-  "Haryana",
-  "Himachal Pradesh",
-  "Jammu and Kashmir",
-  "Jharkhand",
-  "Karnataka",
-  "Kerala",
-  "Madhya Pradesh",
-  "Maharashtra",
-  "Manipur",
-  "Meghalaya",
-  "Mizoram",
-  "Nagaland",
-  "Odisha",
-  "Punjab",
-  "Rajasthan",
-  "Sikkim",
-  "Tamil Nadu",
-  "Telangana",
-  "Tripura",
-  "Uttar Pradesh",
-  "Uttarakhand",
-  "West Bengal",
-  "Andaman and Nicobar Islands",
-  "Chandigarh",
-  "Dadra and Nagar Haveli",
-  "Daman and Diu",
-  "Lakshadweep",
-  "National Capital Territory of Delhi",
-  "Puducherry",
-];
+const cities = ["Kolkata"];
 
-function HomeTagSection({ location }) {
+function HomeTagSection() {
   const classes = useStyles();
-  const refreshPage = (event) => {
-    event.preventDefault();
-    window.location.reload(false);
+  const { location } = React.useContext(UserContext);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const handleSelectChange = (event) => {
+    setSelectedCity(event.target.value);
   };
   return (
     <Container
@@ -132,91 +97,101 @@ function HomeTagSection({ location }) {
         #Venuefy your venue
       </Typography>
       <Paper className={classes.topBar}>
-        <Hidden xsDown>
-          <form noValidate autoComplete='off'>
-            <Grid
-              container
-              justify='space-evenly'
-              alignItems='center'
-              className={classes.topBarGC}
+        <Grid
+          container
+          justify='space-evenly'
+          alignItems='center'
+          className={classes.topBarGC}
+        >
+          <Grid item xs={5} className={classes.topBarGI}>
+            <TextField
+              id='city-inp-field'
+              select
+              onChange={handleSelectChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <LocationCity />
+                  </InputAdornment>
+                ),
+              }}
+              fullWidth
+              defaultValue='detected-city'
             >
-              <Grid item xs={5} className={classes.topBarGI}>
-                <TextField
-                  id='city-inp-field'
-                  select
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        <LocationCity />
-                      </InputAdornment>
-                    ),
-                  }}
-                  fullWidth
-                  defaultValue='detected-city'
-                >
-                  <MenuItem value='detected-city'>{location.city}</MenuItem>
-                  {cities.map((city) => (
-                    <MenuItem key={uuid()} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <Divider
-                  variant='middle'
-                  orientation='vertical'
-                  flexItem
-                  component='div'
-                  className={classes.divider}
-                />
-              </Grid>
-              {/* <Grid item xs={5} sm={5} md={5} className={classes.topBarGI}>
-                <TextField
-                  id='area-inp-field'
-                  select
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'>
-                        <Map />
-                      </InputAdornment>
-                    ),
-                  }}
-                  fullWidth
-                  defaultValue='detected-area'
-                >
-                  <MenuItem value='detected-area'>{location.area}</MenuItem>
-                  {cities.map((city) => (
-                    <MenuItem key={uuid()} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <Divider
-                  variant='middle'
-                  orientation='vertical'
-                  flexItem
-                  component='div'
-                  className={classes.divider}
-                />
-              </Grid> */}
-              <Grid item xs={7} className={classes.topBarGI}>
-                <Button fullWidth startIcon={<Search />}>
-                  SEARCH
-                </Button>
-                <Button
-                  startIcon={<MyLocation />}
-                  style={{ marginleft: "16px" }}
-                  onClick={refreshPage}
-                  fullWidth
-                >
-                  NEARBY
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </Hidden>
+              <MenuItem value='detected-city'>{location.city}</MenuItem>
+              {cities.map((city) => (
+                <MenuItem key={uuid()} value={city}>
+                  {city}
+                </MenuItem>
+              ))}
+            </TextField>
+            <div className={classes.divider} />
+          </Grid>
+          <Grid item xs={4} className={classes.topBarGI}>
+            <Link
+              className={classes.linkStyles}
+              to={{
+                pathname: "/Venues",
+                state: { city: selectedCity },
+              }}
+            >
+              <Button fullWidth startIcon={<Search />}>
+                SEARCH
+              </Button>
+            </Link>
+            <div className={classes.divider} />
+          </Grid>
+          <Grid item xs={3} className={classes.topBarGI}>
+            <Link
+              className={classes.linkStyles}
+              to={{
+                pathname: "/Venues",
+                state: { city: selectedCity },
+              }}
+            >
+              <Button
+                startIcon={<MyLocation />}
+                style={{ marginleft: "16px" }}
+                fullWidth
+              >
+                NEARBY
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
       </Paper>
     </Container>
   );
 }
 
 export default HomeTagSection;
+
+// <Grid item xs={5} sm={5} md={5} className={classes.topBarGI}>
+//       <TextField
+//         id='area-inp-field'
+//         select
+//         InputProps={{
+//           startAdornment: (
+//             <InputAdornment position='start'>
+//               <Map />
+//             </InputAdornment>
+//           ),
+//         }}
+//         fullWidth
+//         defaultValue='detected-area'
+//       >
+//         <MenuItem value='detected-area'>{location.area}</MenuItem>
+//         {cities.map((city) => (
+//           <MenuItem key={uuid()} value={city}>
+//             {city}
+//           </MenuItem>
+//         ))}
+//       </TextField>
+//       <Divider
+//         variant='middle'
+//         orientation='vertical'
+//         flexItem
+//         component='div'
+//         className={classes.divider}
+//       />
+//     </Grid>

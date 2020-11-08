@@ -6,8 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { v4 as uuid } from "uuid";
-
-// Title (42px) + Carousel (220px, 340px, 440px) => xs:265, sm:385, md:485
+import "../slick.css";
+import "../slick-theme.css";
 
 const useStyles = makeStyles((theme) => ({
   absoluteContainer: {
@@ -45,18 +45,16 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "55%",
     fontWeight: 600,
     textShadow: `0 0 1px black`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.5)`,
   },
   secondaryTitle: {
     flexBasis: "45%",
     fontWeight: 600,
     textShadow: `0 0 1px black`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.5)`,
   },
   sliderContainer: {
     position: "relative",
     width: "100%",
-    margin: "auto",
+    margin: "30px auto",
     borderRadius: "8px",
     overflow: "hidden",
   },
@@ -103,9 +101,9 @@ const useStyles = makeStyles((theme) => ({
     bottom: "12px",
     width: "100%",
     minHeight: "40px",
-    backgroundColor: `rgba(0, 0, 0, 0.5)`,
-    borderTop: "1px solid grey",
-    borderBottom: "1px solid grey",
+    backgroundColor: `rgba(0, 0, 0, 0.7)`,
+    borderTop: "2px solid black",
+    borderBottom: "2px solid black",
     display: "flex",
     alignItems: "center",
   },
@@ -128,12 +126,23 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "40%",
     [theme.breakpoints.only("xs")]: {
       maxWidth: "80px",
+      fontSize: "8px",
+      paddingLeft: "2px",
     },
     [theme.breakpoints.only("sm")]: {
       maxWidth: "180px",
+      fontSize: "16px",
     },
     [theme.breakpoints.up("md")]: {
       maxWidth: "270px",
+      fontSize: "20px",
+    },
+  },
+  venueArea: {
+    flexBasis: "100%",
+    paddingLeft: "2px",
+    [theme.breakpoints.only("xs")]: {
+      fontSize: "6px",
     },
   },
   bookBtn: {
@@ -187,50 +196,11 @@ function HomeAngularCarousel() {
         maxWidth={false}
       >
         <div className={classes.angularCarouselContainer}>
-          {/* <div className={classes.flexTitle}>
-            <Typography
-              variant='h5'
-              className={classes.secondaryTitle}
-              align='center'
-              component='div'
-            >
-              Resorts
-            </Typography>
-            <Typography
-              variant='h5'
-              className={classes.primaryTitle}
-              align='center'
-            >
-              Banquets
-            </Typography>
-          </div> */}
-          <br />
-          <br />
-
           <div
             className={clsx(classes.sliderContainer, classes.carouselHeight)}
           >
             <SliderWithImgs data={venueData} classes={classes} type='primary' />
           </div>
-          {/* <div className={classes.flexTitle}>
-            <Typography
-              variant='h5'
-              className={classes.primaryTitle}
-              align='center'
-            >
-              Hotels
-            </Typography>
-            <Typography
-              variant='h5'
-              className={classes.secondaryTitle}
-              align='center'
-            >
-              Pubs
-            </Typography>
-          </div> */}
-          <br />
-          <br />
-
           <div
             className={clsx(classes.sliderContainer, classes.carouselHeight)}
           >
@@ -281,7 +251,7 @@ function SliderWithImgs({ type, data, classes }) {
             <Typography variant='body1' className={classes.venueTitle} noWrap>
               {name}
             </Typography>
-            <Typography variant='caption' style={{ flexBasis: "100%" }} noWrap>
+            <Typography variant='caption' className={classes.venueArea} noWrap>
               {area}
             </Typography>
           </div>

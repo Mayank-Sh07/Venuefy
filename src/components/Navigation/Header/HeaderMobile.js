@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Divider from "@material-ui/core/Divider";
 import Toolbar from "@material-ui/core/Toolbar";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -15,6 +16,7 @@ import Money from "@material-ui/icons/Money";
 import Home from "@material-ui/icons/Home";
 import ContactMail from "@material-ui/icons/ContactMail";
 import Book from "@material-ui/icons/Book";
+import logo from "../VenuefyLogo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,11 +37,10 @@ const useStyles = makeStyles((theme) => ({
     borderTopLeftRadius: "1.25em",
     borderTopRightRadius: "1.25em",
     textShadow: `0 0 2px black`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.5)`,
   },
   floatingNavContainer: {
     position: "fixed",
-    bottom: "15px",
+    bottom: "12px",
     zIndex: theme.zIndex.mobileStepper,
     backgroundColor: "transparent",
     width: "100%",
@@ -47,14 +48,12 @@ const useStyles = makeStyles((theme) => ({
   },
   floatingNav: {
     borderRadius: "1.75em",
-    // border: "0.3px solid white",
     boxShadow: `0px 3px 0px -6px rgba(255,255,255,0.2), 0px 0px 10px 1px rgba(255,255,255,0.14), 0px -1px 6px 3px rgba(255,255,255,0.12)`,
     overflow: "hidden",
   },
   selectedBottom: {
     backgroundColor: "#FFFFFF",
     textShadow: `0 0 2px black`,
-    filter: `progid: DXImageTransform.Microsoft.Glow(Color=#ffffff,Strength=0.25)`,
   },
   tinyLabel: {
     fontSize: "7px",
@@ -64,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
     padding: "0px !important",
     marginLeft: "8px",
     minWidth: "0px",
+  },
+  divider: {
+    maxHeight: "36px",
+    margin: "10px 0px",
   },
 }));
 
@@ -77,7 +80,7 @@ export default function HeaderMobile({ currentPath }) {
   function FloatingNavBar(props) {
     const trigger = useScrollTrigger();
     return (
-      <Slide in={!trigger} direction='up'>
+      <Slide in={!trigger} direction='up' unmountOnExit mountOnEnter>
         <Toolbar className={classes.floatingNavContainer} disableGutters>
           <BottomNavigation
             value={currentPath}
@@ -91,21 +94,33 @@ export default function HeaderMobile({ currentPath }) {
               icon={<Home />}
               classes={{ selected: classes.selectedBottom }}
             />
-            {/* <Divider orientation='vertical' flexItem /> */}
+            <Divider
+              orientation='vertical'
+              flexItem
+              className={classes.divider}
+            />
             <BottomNavigationAction
               value='/Contact'
               label='Contact'
               icon={<ContactMail />}
               classes={{ selected: classes.selectedBottom }}
             />
-            {/* <Divider orientation='vertical' flexItem /> */}
+            <Divider
+              orientation='vertical'
+              flexItem
+              className={classes.divider}
+            />
             <BottomNavigationAction
               value='/Blog'
               label='Blog'
               icon={<Book />}
               classes={{ selected: classes.selectedBottom }}
             />
-            {/* <Divider orientation='vertical' flexItem /> */}
+            <Divider
+              orientation='vertical'
+              flexItem
+              className={classes.divider}
+            />
             <BottomNavigationAction
               value='/Account'
               label='Account'
@@ -122,9 +137,9 @@ export default function HeaderMobile({ currentPath }) {
     <>
       <div className={classes.root}>
         <AppBar position='static' className={classes.mobileHeader}>
-          <Toolbar disableGutters>
+          <Toolbar>
             <div className={classes.title}>
-              <img src='imgs/vflogo.PNG' alt='Venuefy' />
+              <img src={logo} alt='Venuefy' height='35px' width='110px' />
             </div>
             <BottomNavigation showLabels style={{ height: "unset" }}>
               <BottomNavigationAction

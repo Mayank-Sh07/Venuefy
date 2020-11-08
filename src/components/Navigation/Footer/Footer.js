@@ -11,7 +11,7 @@ import Facebook from "@material-ui/icons/Facebook";
 import YouTube from "@material-ui/icons/YouTube";
 import Twitter from "@material-ui/icons/Twitter";
 import LinkedIn from "@material-ui/icons/LinkedIn";
-import TreeViewList from "../TreeView/TreeView";
+import TreeViewList from "./TreeView";
 
 const useStyles = makeStyles((theme) => ({
   footerContainer: {
@@ -179,7 +179,7 @@ function HomeServices() {
               src='https://static.wixstatic.com/media/0cbda3_6d68eb4cafc241d08c837a2bfd5021b4~mv2.jpg/v1/fill/w_364,h_89,al_c,q_80,usm_0.66_1.00_0.01/0001%2520(3)_edited.webp'
               alt='WDI Events'
               height='70px'
-              width='180px'
+              width='200px'
             />
           </a>
         </Grid>

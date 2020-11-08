@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionHead: {
+    marginTop: "30px",
     padding: "20px 20px 20px 75px",
     fontWeight: 600,
     [theme.breakpoints.only("xs")]: {

@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import "../slick.css";
+import "../slick-theme.css";
 
 const useStyles = makeStyles((theme) => ({
   posterContainer: {
@@ -87,13 +89,17 @@ const data = [
 
 function HomePoster() {
   const classes = useStyles();
-  const [slider, setSlider] = React.useState(null);
   const sliderProps = {
     arrows: false,
     dots: true,
     infinite: true,
     slidesToShow: 1,
-    speed: 2000,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 3000,
+    autoplaySpeed: 7000,
+    cssEase: "linear",
+    lazyLoad: true,
   };
 
   const VendorSlide = ({ title, description, photoURL }) => {
@@ -143,12 +149,7 @@ function HomePoster() {
       className={classes.posterContainer}
       disableGutters
     >
-      <Slider
-        {...sliderProps}
-        ref={(c) => {
-          setSlider(c);
-        }}
-      >
+      <Slider {...sliderProps}>
         {data.map((vendor) => (
           <VendorSlide
             title={vendor.title}
@@ -157,7 +158,6 @@ function HomePoster() {
           />
         ))}
       </Slider>
-      {/* <Button onClick={() => slider.slickPrev()}>Back</Button> */}
     </Container>
   );
 }

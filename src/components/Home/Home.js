@@ -8,6 +8,7 @@ import HomeAngularDescription from "./HomeAngularDescription/HomeAngularDescript
 import HomePoster from "./HomePoster/HomePoster";
 import HomeServices from "./HomeServices/HomeServices";
 import HomeFeatures from "./HomeFeatures/HomeFeatures";
+import LazyLoad from "react-lazyload";
 
 const useStyles = makeStyles((theme) => ({
   tagContainerBG: {
@@ -57,8 +58,12 @@ function Home({ location }) {
       <HomeAngularCarousel />
       <Container maxWidth={false} disableGutters className={classes.sectionsBG}>
         <HomeAngularDescription />
-        <HomePoster />
-        <HomeServices />
+        <LazyLoad height={420} offset={100} once>
+          <HomePoster />
+        </LazyLoad>
+        <LazyLoad height={420} offset={100} once>
+          <HomeServices />
+        </LazyLoad>
       </Container>
       <HomeFeatures />
     </>

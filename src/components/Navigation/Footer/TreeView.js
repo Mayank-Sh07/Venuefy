@@ -20,13 +20,19 @@ export default function TreeViewList({ listData }) {
 
   return (
     <TreeView
+      key={uuid()}
       className={classes.TreeViewContainer}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
+      defaultExpanded={["1"]}
     >
-      <TreeItem nodeId={uuid()} label={listData.head}>
+      <TreeItem nodeId='1' key={`${listData.head}-Key`} label={listData.head}>
         {listData.nodes.map((name) => (
-          <TreeItem nodeId={uuid()} label={name} />
+          <TreeItem
+            nodeId={`${name}-NODE-ID`}
+            key={`${name}-KEY-ID`}
+            label={name}
+          />
         ))}
       </TreeItem>
     </TreeView>
