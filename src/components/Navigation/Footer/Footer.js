@@ -12,6 +12,7 @@ import YouTube from "@material-ui/icons/YouTube";
 import Twitter from "@material-ui/icons/Twitter";
 import LinkedIn from "@material-ui/icons/LinkedIn";
 import TreeViewList from "./TreeView";
+import logo from "../VenuefyLogo.png";
 
 const useStyles = makeStyles((theme) => ({
   footerContainer: {
@@ -80,7 +81,7 @@ function HomeServices() {
         <Grid item xs={12} sm={4}>
           <Grid item container direction='column' alignItems='center'>
             <Grid item xs={12}>
-              <img src='imgs/vflogo.PNG' alt='Venuefy' />
+              <img src={logo} height='50px' width='160px' alt='Venuefy' />
             </Grid>
             <Grid item xs={6} sm={12}>
               <a

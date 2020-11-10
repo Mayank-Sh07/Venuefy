@@ -119,8 +119,8 @@ function HomePoster() {
             alignItems='stretch'
             className={classes.slideContainer}
           >
-            <Grid item xs={0} sm={4} md={4} />
-            <Grid item xs={0} sm={4} md={5} />
+            <Grid item sm={4} md={4} />
+            <Grid item sm={4} md={5} />
             <Grid
               item
               xs={12}

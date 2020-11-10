@@ -8,6 +8,11 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
+import image1 from "./1.png";
+import image2 from "./2.png";
+import image3 from "./3.png";
+import image4 from "./4.png";
+import image5 from "./5.png";
 
 const useStyles = makeStyles((theme) => ({
   featurePaper: {
@@ -94,33 +99,33 @@ const useStyles = makeStyles((theme) => ({
 const data = [
   {
     title: "Venue Supervisors",
-    description: "abc",
-    imageURL: "/imgs/Venue_Super_Visors.jpg",
+    description:
+      "We will be providing Venue Supervisors for your event, to take care of all the assistance related to the Venue in your Event.",
+    image: image1,
   },
   {
     title: "Video Reviews",
-    description: "def",
-    imageURL: "/imgs/card-profile2-square.jpg",
+    description:
+      "We believe in real face to face reviews by our Clients, see what the past Clients say about us and their successful Events through Venuefy.",
+    image: image2,
   },
   {
-    title: "Event Coordinators",
-    description: "ghi",
-    imageURL: "/imgs/card-profile4-square.jpg",
+    title: "Free Coordinators",
+    description:
+      "We will be providing free Event Coordinators for your event, on successful Venue bookings with Venuefy",
+    image: image3,
   },
   {
-    title: "Management Counsultants",
-    description: "jkl",
-    imageURL: "/imgs/card-profile5-square.jpg",
+    title: "Best Discounts",
+    description:
+      "No Middle-man applied, so we are able to bring to you the best discounts for your auspicious Events.",
+    image: image4,
   },
   {
-    title: "No-Star Ratings",
-    description: "mno",
-    imageURL: "/imgs/card-profile6-square.jpg",
-  },
-  {
-    title: "Discounts",
-    description: "pqr",
-    imageURL: "/imgs/card-profile1-square.jpg",
+    title: "Your Choice",
+    description:
+      "Ours Executives will provide you with multiple choices of venue and you are the Final Decision maker considering all the aspects and requirements of your Event.",
+    image: image5,
   },
 ];
 
@@ -164,7 +169,7 @@ function HomeFeatures() {
             >
               <Grid item>
                 <Button className={btnClasses(0)} onClick={() => setIndx(0)}>
-                  Supervisors
+                  Venue Supervisors
                 </Button>
               </Grid>
               <Grid item>
@@ -174,22 +179,17 @@ function HomeFeatures() {
               </Grid>
               <Grid item>
                 <Button className={btnClasses(2)} onClick={() => setIndx(2)}>
-                  Coordinators
+                  Free Coordinators
                 </Button>
               </Grid>
               <Grid item>
                 <Button className={btnClasses(3)} onClick={() => setIndx(3)}>
-                  Counsultants
+                  Best Discounts
                 </Button>
               </Grid>
               <Grid item>
                 <Button className={btnClasses(4)} onClick={() => setIndx(4)}>
-                  No-Star Rating
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button className={btnClasses(5)} onClick={() => setIndx(5)}>
-                  Discounts
+                  Choice
                 </Button>
               </Grid>
             </Grid>
@@ -209,7 +209,7 @@ function HomeFeatures() {
               <CardMedia
                 component='img'
                 alt='null image'
-                image={data[index].imageURL}
+                image={data[index].image}
                 height='340px'
                 className={clsx(classes.rounded, classes.floating)}
               />

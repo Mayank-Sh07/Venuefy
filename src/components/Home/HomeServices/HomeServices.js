@@ -9,6 +9,9 @@ import CardActions from "@material-ui/core/CardActions";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import image1 from "./1.jpg";
+import image2 from "./2.jpg";
+import image3 from "./3.jpg";
 
 const useStyles = makeStyles((theme) => ({
   serviceContainer: {
@@ -63,12 +66,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const serviceData = [
-  { imagePath: "/imgs/Venue_Services.jpg", serviceName: "Venue Services" },
+  { image: image1, serviceName: "Venue Services" },
   {
-    imagePath: "/imgs/Non_Venue_Services.jpg",
+    image: image2,
     serviceName: "Non-Venue Services",
   },
-  { imagePath: "/imgs/Premium_Services.jpg", serviceName: "Premium Services" },
+  { image: image3, serviceName: "Premium Services" },
 ];
 
 function HomeServices() {
@@ -97,7 +100,7 @@ function HomeServices() {
                 component='img'
                 alt='service image'
                 height='240'
-                image={service.imagePath}
+                image={service.image}
                 className={classes.rounded}
               />
               <CardContent style={{ paddingBottom: "0px" }}>

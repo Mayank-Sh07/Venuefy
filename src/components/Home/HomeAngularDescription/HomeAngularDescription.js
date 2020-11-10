@@ -5,6 +5,7 @@ import Hidden from "@material-ui/core/Hidden";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
+import image from "./1.jpg";
 
 const useStyles = makeStyles((theme) => ({
   descriptionContainer: {
@@ -97,11 +98,7 @@ function HomeAngularDescription() {
       <div className={classes.descriptionContainer}>
         <Hidden xsDown>
           <div className={classes.rightImageContainer}>
-            <img
-              src={"imgs/banner2.jpg"}
-              alt='Banner'
-              className={classes.imageClass}
-            />
+            <img src={image} alt='EventImage' className={classes.imageClass} />
           </div>
           <div className={classes.leftTextContainer}>
             <Typography variant='h2' className={classes.leftHeading}>
@@ -141,8 +138,8 @@ function HomeAngularDescription() {
             </CardContent>
             <CardMedia
               component='img'
-              alt='null image'
-              image={"/imgs/banner2.jpg"}
+              alt='Event Image'
+              image={image}
               height='250px'
               className={classes.rounded}
               style={{

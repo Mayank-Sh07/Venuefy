@@ -2,7 +2,7 @@ import React, { useEffect, useState, createContext } from "react";
 import { usePosition } from "use-position";
 import Geocode from "react-geocode";
 // disabled location finder for dev setup
-Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
+// Geocode.setApiKey("AIzaSyD8GFTbKJa9sHNp-HDcfFsgoRDXueRRCBw");
 
 export const UserContext = createContext(null);
 
