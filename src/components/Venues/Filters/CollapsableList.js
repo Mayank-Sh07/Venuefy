@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Controller } from "react-hook-form";
+import { v4 as uuid } from "uuid";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import List from "@material-ui/core/List";
@@ -15,46 +16,50 @@ const useStyles = makeStyles((theme) => ({
   nested: {
     paddingLeft: theme.spacing(3),
   },
+  listIcon: {
+    minWidth: "0px",
+    paddingLeft: "10px",
+  },
 }));
 
 export default function CollapsableList({
-  data,
+  checkboxes,
   name,
   control,
   handleCheckBox,
 }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const toggleExpand = () => {
+    setExpanded(!expanded);
   };
 
   return (
     <>
-      <ListItem button onClick={handleClick}>
+      <ListItem key={uuid()} button onClick={toggleExpand}>
         <ListItemText primary={name} />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={open} timeout='auto' unmountOnExit>
-        <List component='div' disablePadding>
-          {data.map((item) => (
-            <ListItem key={`item-${item.name}`} dense>
+      <Collapse in={expanded} timeout='auto' unmountOnExit>
+        <List component='div' disablePadding className={classes.nested}>
+          {checkboxes.map((box) => (
+            <ListItem key={`box-${box.name}`} dense>
               <ListItemIcon classes={{ root: classes.listIcon }}>
                 <Controller
-                  name={item.name}
+                  name={box.name}
                   control={control}
                   defaultValue={false}
                   render={(props) => (
                     <FormControlLabel
                       control={
                         <Checkbox
-                          onChange={(e) => handleCheckBox(e, props, item.label)}
+                          onChange={(e) => handleCheckBox(e, props, box.label)}
                           checked={props.value}
                           disableRipple
                         />
                       }
-                      label={item.label}
+                      label={box.label}
                     ></FormControlLabel>
                   )}
                 />

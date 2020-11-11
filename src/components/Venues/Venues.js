@@ -1,40 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import clsx from "clsx";
-import { v4 as uuid } from "uuid";
-import { useForm } from "react-hook-form";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useForm } from "react-hook-form";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Drawer from "@material-ui/core/Drawer";
-import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
-import Fab from "@material-ui/core/Fab";
-import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
-import Hidden from "@material-ui/core/Hidden";
-import FilterList from "@material-ui/icons/FilterList";
-import FilterForm from "./Filter/FilterForm";
-import "./image-gallery.scss";
-import Venue from "./Venue/Venue";
+import Form from "./Filters/Form";
+// Optimizations pending
+import ActionBar from "./ActionBar";
+// Optimizations pending
+import reducer from "./userActions";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexGrow: 1,
   },
-  filterFloat: {
-    position: "fixed",
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-    [theme.breakpoints.down("xs")]: {
-      bottom: theme.spacing(8),
-      right: theme.spacing(1),
-    },
-  },
   onFilterOpen: {
     [theme.breakpoints.up("lg")]: {
       transition: theme.transitions.create(["padding"], {
         easing: theme.transitions.easing.easeOut,
-        duration: 200,
+        duration: 225,
       }),
       paddingLeft: "250px",
     },
@@ -43,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("lg")]: {
       transition: theme.transitions.create(["padding"], {
         easing: theme.transitions.easing.easeOut,
-        duration: 195,
+        duration: 800,
       }),
       padding: 0,
     },
@@ -59,50 +45,14 @@ const useStyles = makeStyles((theme) => ({
       top: "0px",
     },
   },
-  actionBar: {
-    minHeight: "64px",
-    marginTop: "2px",
-    padding: "0px 15px",
-  },
-  tagContainer: {
-    display: "flex",
-    flexGrow: 1,
-    listStyle: "none",
-    padding: theme.spacing(0.5),
-    margin: 0,
-    minHeight: "40px",
-    overflow: "auto",
-    backgroundColor: "inherit",
-  },
-  tag: {
-    margin: theme.spacing(0.5),
-  },
 }));
 
-const photoSet = (baseURL, size) => {
-  baseURL = baseURL.replaceAll("<s>", "/");
-  let srcArr = [...Array(size).keys()].map((indx) => ({
-    original: baseURL + indx + "%40lb.jpeg",
-    thumbnail: baseURL + indx + "%40ps.jpeg",
-  }));
-  return srcArr;
-};
-
-const getData = (setData) => {
-  fetch("venueData.json", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }).then(function (response) {
-    response.json().then((data) => {
-      data = data[0].table.map((venue) => ({
-        ...venue,
-        photos: photoSet(venue.photos, venue.nphotos),
-      }));
-      setData(data);
-    });
-  });
+const initialState = {
+  isFilterOpen: Boolean(window.innerWidth > 1000),
+  filterParams: {},
+  tags: [],
+  checkBoxTags: [],
+  selectTags: [],
 };
 
 export default function Venues() {
@@ -111,113 +61,42 @@ export default function Venues() {
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"), {
     defaultMatches: true,
   });
-  const { handleSubmit, control, reset, getValues } = useForm();
-  const [filterOpen, setFilterOpen] = useState(() =>
-    Boolean(window.innerWidth > 1000)
-  );
-  const [fetchCount, triggerFetch] = useState(1);
-  const [venueData, setVenueData] = useState([]);
-  const [tagData, setTagData] = React.useState([]);
-
-  useEffect(() => {
-    console.log(`data fetched ${fetchCount} times`);
-    getData(setVenueData);
-  }, [fetchCount]);
-
-  // const deleteTag = (tagToDelete) => () => {
-  //   setTagData((tags) => tags.filter((tag) => tag.key !== tagToDelete.key));
-  // };
-
-  const applyFilters = handleSubmit((data) => {
-    console.log(data);
-    setTagData([]);
-    Object.keys(data).forEach(
-      (key) => (data[key] === false || data[key] === "") && delete data[key]
-    );
-    triggerFetch(fetchCount + 1);
-    setTagData(
-      Object.keys(data).map((filterName) => ({
-        key: uuid(),
-        label: filterName,
-      }))
-    );
-  });
-
-  if (venueData === [] || venueData.length === 0) {
-    return <h1>Loading...</h1>;
-  }
-
+  const { control, reset, getValues, setValue } = useForm();
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  React.useEffect(() => {
+    console.log("FETCHING DATA WITH : ", state.filterParams);
+  }, [state.filterParams]);
   return (
     <div className={classes.root}>
       <Drawer
         variant={isMobile ? "temporary" : "persistent"}
         anchor='left'
-        open={filterOpen}
+        open={state.isFilterOpen}
         classes={{ paper: classes.drawerPaper }}
+        transitionDuration={{ enter: 300, exit: 500 }}
       >
-        <FilterForm
+        <Form
+          dispatch={dispatch}
           control={control}
-          setFilterOpen={setFilterOpen}
-          handleSubmit={applyFilters}
           reset={reset}
           getValues={getValues}
+          setValue={setValue}
         />
       </Drawer>
       <Container
         disableGutters
         maxWidth={false}
         className={clsx({
-          [classes.onFilterOpen]: filterOpen,
-          [classes.onFilterClose]: !filterOpen,
+          [classes.onFilterOpen]: state.isFilterOpen,
+          [classes.onFilterClose]: !state.isFilterOpen,
         })}
       >
-        <Hidden mdUp>
-          <Fab
-            color='secondary'
-            size='large'
-            className={classes.filterFloat}
-            onClick={() => setFilterOpen(true)}
-          >
-            <FilterList />
-          </Fab>
-        </Hidden>
-        <Grid container alignItems='center' className={classes.actionBar}>
-          {!filterOpen && (
-            <Hidden smDown>
-              <Grid item md={1}>
-                <Button
-                  variant='contained'
-                  onClick={() => setFilterOpen(true)}
-                  fullWidth
-                >
-                  Filter
-                </Button>
-              </Grid>
-            </Hidden>
-          )}
-          <Grid item xs={12} sm={12} md={11}>
-            <div style={{ width: "100%", height: "45px", overflowY: "hidden" }}>
-              <Paper
-                component='ul'
-                className={classes.tagContainer}
-                style={{ paddingBottom: "30px" }}
-              >
-                {tagData.map((data) => {
-                  return (
-                    <li key={data.key}>
-                      <Chip
-                        label={data.label}
-                        // onDelete={deleteTag(data)}
-                        className={classes.tag}
-                      />
-                    </li>
-                  );
-                })}
-              </Paper>
-            </div>
-          </Grid>
-        </Grid>
-        <Venue venueData={venueData} />
+        <ActionBar
+          dispatch={dispatch}
+          isFilterOpen={state.isFilterOpen}
+          tags={state.tags}
+          getValues={getValues}
+        />
       </Container>
     </div>
   );

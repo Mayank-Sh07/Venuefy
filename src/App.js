@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navigation/Header/Navbar";
 import Footer from "./components/Navigation/Footer/Footer";
 const Home = React.lazy(() => import("./components/Home/Home"));
-const Venues = React.lazy(() => import("./components/NewVenues/Venues"));
+const Venues = React.lazy(() => import("./components/Venues/Venues"));
 const Testimonials = React.lazy(() =>
   import("./components/Testimonials/Testimonials")
 );
