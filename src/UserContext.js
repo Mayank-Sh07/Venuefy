@@ -10,7 +10,6 @@ const UserContextProvider = ({ children }) => {
   const [location, setLocation] = useState({ city: "City", zip: null });
   const { latitude, longitude } = usePosition();
   useEffect(() => {
-    console.log("effect used");
     if (!!latitude && !!longitude) {
       Geocode.fromLatLng(latitude, longitude).then(
         (response) => {

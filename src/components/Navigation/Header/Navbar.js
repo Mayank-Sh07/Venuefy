@@ -1,18 +1,19 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import Skeleton from "@material-ui/lab/Skeleton";
-const Header = React.lazy(() => import("./Header"));
-const HeaderMobile = React.lazy(() => import("./HeaderMobile"));
+import Header from "./Header";
+import HeaderMobile from "./HeaderMobile";
+import Hidden from "@material-ui/core/Hidden";
 
 export default function Navbar() {
   const location = useLocation();
-  return window.innerWidth < 600 ? (
-    <React.Suspense fallback={<Skeleton height={120} width={"100%"} />}>
-      <HeaderMobile currentPath={location.pathname} />
-    </React.Suspense>
-  ) : (
-    <React.Suspense fallback={<Skeleton height={92} width={"100%"} />}>
-      <Header currentPath={location.pathname} />
-    </React.Suspense>
+  return (
+    <>
+      <Hidden smUp>
+        <HeaderMobile currentPath={location.pathname} />
+      </Hidden>
+      <Hidden xsDown>
+        <Header currentPath={location.pathname} />
+      </Hidden>
+    </>
   );
 }

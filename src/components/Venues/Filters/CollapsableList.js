@@ -1,4 +1,5 @@
 import React from "react";
+import { FormContext } from "./FormContext";
 import { makeStyles } from "@material-ui/core/styles";
 import { Controller } from "react-hook-form";
 import { v4 as uuid } from "uuid";
@@ -22,12 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CollapsableList({
-  checkboxes,
-  name,
-  control,
-  handleCheckBox,
-}) {
+export default function CollapsableList({ checkboxes, name }) {
+  const { control, handleCheckbox } = React.useContext(FormContext);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(true);
 
@@ -54,7 +51,10 @@ export default function CollapsableList({
                     <FormControlLabel
                       control={
                         <Checkbox
-                          onChange={(e) => handleCheckBox(e, props, box.label)}
+                          onChange={(e) => {
+                            props.onChange(e.target.checked);
+                            handleCheckbox(e, box);
+                          }}
                           checked={props.value}
                           disableRipple
                         />

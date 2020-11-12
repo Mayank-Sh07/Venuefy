@@ -1,4 +1,5 @@
 import React from "react";
+import { FormContext } from "./FormContext";
 import { makeStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
@@ -36,9 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ActionBar({ dispatch, isFilterOpen, tags, getValues }) {
+export default function ActionBar() {
   const classes = useStyles();
-
+  const { isFilterOpen, tags, openFilter, deleteTag } = React.useContext(
+    FormContext
+  );
   return (
     <>
       <Hidden mdUp>
@@ -46,7 +49,7 @@ export default function ActionBar({ dispatch, isFilterOpen, tags, getValues }) {
           color='secondary'
           size='large'
           className={classes.filterFloat}
-          onClick={() => dispatch({ type: "OPEN-FILTER" })}
+          onClick={openFilter}
         >
           <FilterList />
         </Fab>
@@ -60,11 +63,7 @@ export default function ActionBar({ dispatch, isFilterOpen, tags, getValues }) {
         <div hidden={isFilterOpen}>
           <Hidden smDown>
             <Grid item md={1}>
-              <Button
-                variant='contained'
-                onClick={() => dispatch({ type: "OPEN-FILTER" })}
-                fullWidth
-              >
+              <Button variant='contained' onClick={openFilter} fullWidth>
                 Filter
               </Button>
             </Grid>
@@ -82,11 +81,7 @@ export default function ActionBar({ dispatch, isFilterOpen, tags, getValues }) {
                   <li key={`tag-${tag.label}`}>
                     <Chip
                       label={tag.label}
-                      onDelete={(data) => {
-                        tag.resetVal();
-                        dispatch({ type: "DELETE-TAG", payload: tag.label });
-                        dispatch({ type: "SUBMIT", payload: getValues() });
-                      }}
+                      onDelete={() => deleteTag(tag)}
                       className={classes.tag}
                     />
                   </li>
