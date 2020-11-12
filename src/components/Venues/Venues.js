@@ -7,6 +7,8 @@ import Container from "@material-ui/core/Container";
 import FormContextProvider, { FormContext } from "./Filters/FormContext";
 import Form from "./Filters/Form";
 import ActionBar from "./Filters/ActionBar";
+import ImageGallery from "react-image-gallery";
+import "./image-gallery.scss";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,16 +46,126 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const perPage = 3;
+
+const stateActions = (state, { type, payload }) => {
+  switch (type) {
+    case "FETCHING-DATA":
+      return { ...state, loading: true };
+
+    case "FETCH-SUCCESS":
+      // console.log("DATA : ", payload);
+      return {
+        ...state,
+        data: payload,
+        displayData: payload.slice(0, perPage),
+        more: Boolean(payload.length > perPage),
+        after: perPage,
+      };
+
+    case "FETCH-ERROR":
+      return { ...state, isError: true };
+
+    case "FETCH-COMPLETED":
+      return { ...state, loading: false };
+
+    case "LOAD-MORE":
+      const moreData = state.data.slice(state.after, state.after + perPage);
+      console.log(moreData);
+      return {
+        ...state,
+        displayData: [...state.displayData, ...moreData],
+        loading: false,
+        more: Boolean(moreData.length === perPage),
+        after: state.after + perPage,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const setPhotoURLs = (baseURL, size) => {
+  baseURL = baseURL.replaceAll("<s>", "/");
+  let srcArr = [...Array(size).keys()].map((indx) => ({
+    original: baseURL + indx + "%40lb.jpeg",
+    thumbnail: baseURL + indx + "%40ps.jpeg",
+  }));
+  return srcArr;
+};
+
+const FetchData = async (dispatch) => {
+  try {
+    const JsonData = await fetch("venueData.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = await JsonData.json();
+    const venueData = data[0].table.map((venue) => ({
+      ...venue,
+      photos: setPhotoURLs(venue.photos, venue.nphotos),
+    }));
+    dispatch({ type: "FETCH-SUCCESS", payload: venueData });
+  } catch (error) {
+    dispatch({ type: "FETCH-ERROR" });
+  } finally {
+    dispatch({ type: "FETCH-COMPLETED" });
+  }
+};
+
 function Venues() {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"), {
     defaultMatches: true,
   });
-  const { isFilterOpen, control } = React.useContext(FormContext);
-  // React.useEffect(() => {
-  //   console.log("FETCHING DATA WITH : ", state.filterParams);
-  // }, [state.filterParams]);
+  const [state, dispatch] = React.useReducer(stateActions, {
+    data: [],
+    loading: false,
+    isError: false,
+    more: true,
+    after: 0,
+    displayData: [],
+  });
+  const { control, isFilterOpen, filterParams } = React.useContext(FormContext);
+  const { loading, displayData, after } = state;
+  const [element, setElement] = React.useState(null);
+  const observer = React.useRef(
+    new IntersectionObserver(
+      (entries) => {
+        const observed = entries[0];
+        console.log(observed);
+        if (observed.isIntersecting) {
+          dispatch({ type: "LOAD-MORE" });
+        }
+      },
+      { threshold: 1 }
+    )
+  );
+  // console.log(displayData);
+  // console.log(after);
+  React.useEffect(() => {
+    // console.log("Fetching Data with Parameters : ", filterParams);
+    dispatch({ type: "FETCHING-DATA" });
+    FetchData(dispatch);
+  }, [filterParams]);
+
+  React.useEffect(() => {
+    const currentElement = element;
+    const currentObserver = observer.current;
+    if (currentElement) {
+      currentObserver.observe(currentElement);
+    }
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [element]);
+
+  if (loading) return <h1>LOADING DATA</h1>;
   return (
     <div className={classes.root}>
       <Drawer
@@ -72,8 +184,27 @@ function Venues() {
           [classes.onFilterOpen]: isFilterOpen,
           [classes.onFilterClose]: !isFilterOpen,
         })}
+        style={{ minHeight: "100vh" }}
       >
         <ActionBar />
+        {displayData.map((venue) => (
+          <ImageGallery
+            items={venue.photos}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            lazyLoad={true}
+          />
+          // <h2
+          //   key={venue.name}
+          //   style={{ margin: "30px 10px", backgroundColor: "grey" }}
+          // >
+          //   {venue.name}
+          // </h2>
+        ))}
+        <div
+          ref={setElement}
+          style={{ backgroundColor: "red", height: "20px", width: "60px" }}
+        />
       </Container>
     </div>
   );

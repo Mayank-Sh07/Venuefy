@@ -261,7 +261,7 @@ export default function Form() {
           <Controller
             name='Guest capacity'
             control={control}
-            defaultValue={[0, 7]}
+            defaultValue={[0, 4]}
             render={(props) => (
               <Slider
                 {...props}

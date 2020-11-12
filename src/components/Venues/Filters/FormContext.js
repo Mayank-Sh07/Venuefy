@@ -39,10 +39,19 @@ function reducer(state, { type, payload }) {
       Object.keys(payload).forEach(
         (key) => payload[key] === false && delete payload[key]
       );
+      const GC = {};
+      for (
+        let indx = payload["Guest capacity"][0];
+        indx <= payload["Guest capacity"][1];
+        indx++
+      ) {
+        indx !== 0 ? (GC[`gc_${indx}`] = 1) : console.log();
+      }
+      delete payload["Guest capacity"];
       return {
         ...state,
         tags: [...state.checkBoxTags, ...state.selectTags],
-        filterParams: payload,
+        filterParams: { ...payload, ...GC },
       };
     }
 

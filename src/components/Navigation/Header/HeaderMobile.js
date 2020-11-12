@@ -85,7 +85,7 @@ export default function HeaderMobile({ currentPath }) {
           <BottomNavigation
             value={currentPath}
             onChange={handleChange}
-            showLabels
+            showLabels={true}
             className={classes.floatingNav}
           >
             <BottomNavigationAction
@@ -141,7 +141,7 @@ export default function HeaderMobile({ currentPath }) {
             <div className={classes.title}>
               <img src={logo} alt='Venuefy' height='35px' width='110px' />
             </div>
-            <BottomNavigation showLabels style={{ height: "unset" }}>
+            <BottomNavigation showLabels={true} style={{ height: "unset" }}>
               <BottomNavigationAction
                 label='Testimonials'
                 icon={
@@ -202,7 +202,7 @@ export default function HeaderMobile({ currentPath }) {
           <BottomNavigation
             value={currentPath}
             onChange={handleChange}
-            showLabels
+            showLabels={true}
           >
             <BottomNavigationAction
               value='/Venues'
