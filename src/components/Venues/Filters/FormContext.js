@@ -72,7 +72,7 @@ function reducer(state, { type, payload }) {
 const FormContextProvider = ({ children }) => {
   const { control, reset, getValues, setValue } = useForm();
   const [state, dispatch] = React.useReducer(reducer, {
-    isFilterOpen: Boolean(window.innerWidth > 1000),
+    isFilterOpen: Boolean(window.innerWidth > 1200),
     filterParams: {},
     tags: [],
     checkBoxTags: [],

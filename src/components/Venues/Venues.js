@@ -7,8 +7,7 @@ import Container from "@material-ui/core/Container";
 import FormContextProvider, { FormContext } from "./Filters/FormContext";
 import Form from "./Filters/Form";
 import ActionBar from "./Filters/ActionBar";
-import ImageGallery from "react-image-gallery";
-import "./image-gallery.scss";
+import VenueList from "./VenueList/VenueList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -130,7 +129,7 @@ function Venues() {
     displayData: [],
   });
   const { control, isFilterOpen, filterParams } = React.useContext(FormContext);
-  const { loading, displayData, after } = state;
+  const { loading, displayData } = state;
   const [element, setElement] = React.useState(null);
   const observer = React.useRef(
     new IntersectionObserver(
@@ -144,10 +143,9 @@ function Venues() {
       { threshold: 1 }
     )
   );
-  // console.log(displayData);
-  // console.log(after);
+
   React.useEffect(() => {
-    // console.log("Fetching Data with Parameters : ", filterParams);
+    console.log("Fetching Data with Parameters : ", filterParams);
     dispatch({ type: "FETCHING-DATA" });
     FetchData(dispatch);
   }, [filterParams]);
@@ -187,24 +185,7 @@ function Venues() {
         style={{ minHeight: "100vh" }}
       >
         <ActionBar />
-        {displayData.map((venue) => (
-          <ImageGallery
-            items={venue.photos}
-            showFullscreenButton={false}
-            showPlayButton={false}
-            lazyLoad={true}
-          />
-          // <h2
-          //   key={venue.name}
-          //   style={{ margin: "30px 10px", backgroundColor: "grey" }}
-          // >
-          //   {venue.name}
-          // </h2>
-        ))}
-        <div
-          ref={setElement}
-          style={{ backgroundColor: "red", height: "20px", width: "60px" }}
-        />
+        <VenueList venueData={displayData} loadTracer={setElement} />
       </Container>
     </div>
   );

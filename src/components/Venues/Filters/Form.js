@@ -179,6 +179,7 @@ const listData = [
           { label: "Hawan Allowed", name: "perm_4" },
           { label: "Fire-Crackers Allowed", name: "perm_5" },
           { label: "Multiple Wedding", name: "perm_6" },
+          { label: "END", name: "END" },
         ],
       },
     ],
