@@ -1,0 +1,63 @@
+{
+    "profile": {
+        "address": "19 EcoCentre Ambuja Neotia 4, EM Block, Sector V, Bidhannagar",
+        "area": "Saltlake",
+        "city": "Kolkata",
+        "desc": "NAN",
+        "es": [
+            {
+                "amenities": "[]",
+                "area": 450,
+                "gc": 450,
+                "name": "Phoenix",
+                "pc": 60,
+                "photos": 6500,
+                "sc": 600,
+                "space type": "AC Hall",
+                "vcode": "VNFY0Kol002"
+            },
+            {
+                "amenities": "[]",
+                "area": 40,
+                "gc": 40,
+                "name": "Nova iii",
+                "pc": 60,
+                "photos": 1000,
+                "sc": 600,
+                "space type": "AC Hall",
+                "vcode": "VNFY0Kol002"
+            },
+            {
+                "amenities": "[]",
+                "area": 70,
+                "gc": 70,
+                "name": "Rendezvous (open terrace and restaurant)",
+                "pc": 60,
+                "photos": 2500,
+                "sc": 600,
+                "space type": "AC Hall",
+                "vcode": "VNFY0Kol002"
+            },
+            {
+                "amenities": "[]",
+                "area": 250,
+                "gc": 250,
+                "name": "Celeste (open terrace with covered function area )",
+                "pc": 60,
+                "photos": 7500,
+                "sc": 600,
+                "space type": "AC Hall",
+                "vcode": "VNFY0Kol002"
+            }
+        ],
+        "map": "22.5774614,88.4254301",
+        "multi_hall": 4,
+        "name": "Altair Boutique Hotel",
+        "photos": "NAN",
+        "pincode": 700091,
+        "review": "0(0)",
+        "state": "West Bengal",
+        "vcode": "VNFY0Kol002",
+        "videos": "NAN"
+    }
+}

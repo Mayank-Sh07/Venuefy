@@ -2,7 +2,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import responsiveFontSizes from "@material-ui/core/styles/responsiveFontSizes";
 
 // venuefy theme
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     type: "dark",
     primary: {
@@ -21,6 +21,6 @@ const theme = createMuiTheme({
   },
 });
 
-const venuefyTheme = responsiveFontSizes(theme);
+theme = responsiveFontSizes(theme);
 
-export default venuefyTheme;
+export default theme;

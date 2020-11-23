@@ -163,6 +163,9 @@ $ig-transparent: rgba(0, 0, 0, 0) !default;
   //   max-height: calc(100vh - 80px); to height: 300px;
   .image-gallery-slide .image-gallery-image {
     height: 300px;
+    @media (max-width: $ig-xsmall-screen) {
+      height: 200px;
+    }
   }
 
   &.left,

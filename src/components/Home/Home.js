@@ -57,15 +57,19 @@ function Home({ location }) {
       ></Container>
       <HomeAngularCarousel />
       <Container maxWidth={false} disableGutters className={classes.sectionsBG}>
-        <HomeAngularDescription />
-        <LazyLoad height={420} offset={100} once>
+        <LazyLoad offset={100} once>
+          <HomeAngularDescription />
+        </LazyLoad>
+        <LazyLoad offset={100} once>
           <HomePoster />
         </LazyLoad>
-        <LazyLoad height={420} offset={100} once>
+        <LazyLoad offset={100} once>
           <HomeServices />
         </LazyLoad>
       </Container>
-      <HomeFeatures />
+      <LazyLoad offset={100} height={400} once>
+        <HomeFeatures />
+      </LazyLoad>
     </>
   );
 }

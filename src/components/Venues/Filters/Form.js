@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FormContext } from "./FormContext";
 import { Controller } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
@@ -179,14 +179,13 @@ const listData = [
           { label: "Hawan Allowed", name: "perm_4" },
           { label: "Fire-Crackers Allowed", name: "perm_5" },
           { label: "Multiple Wedding", name: "perm_6" },
-          { label: "END", name: "END" },
         ],
       },
     ],
   },
 ];
 
-export default function Form() {
+function Form() {
   const classes = useStyles();
   const {
     control,
@@ -196,6 +195,8 @@ export default function Form() {
     handleReset,
     handleSubmit,
   } = React.useContext(FormContext);
+
+  console.log("FORM");
 
   return (
     <form noValidate className={classes.filterForm}>
@@ -337,3 +338,5 @@ export default function Form() {
     </form>
   );
 }
+
+export default memo(Form);

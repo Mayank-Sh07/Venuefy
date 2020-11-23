@@ -7,12 +7,15 @@ import Container from "@material-ui/core/Container";
 import FormContextProvider, { FormContext } from "./Filters/FormContext";
 import Form from "./Filters/Form";
 import ActionBar from "./Filters/ActionBar";
+import TagBar from "./Filters/TagBar";
 import VenueList from "./VenueList/VenueList";
+import LoadingVenues from "../Loading/LoadingVenues";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexGrow: 1,
+    backgroundColor: theme.palette.secondary.light,
   },
   onFilterOpen: {
     [theme.breakpoints.up("lg")]: {
@@ -53,7 +56,6 @@ const stateActions = (state, { type, payload }) => {
       return { ...state, loading: true };
 
     case "FETCH-SUCCESS":
-      // console.log("DATA : ", payload);
       return {
         ...state,
         data: payload,
@@ -70,7 +72,6 @@ const stateActions = (state, { type, payload }) => {
 
     case "LOAD-MORE":
       const moreData = state.data.slice(state.after, state.after + perPage);
-      console.log(moreData);
       return {
         ...state,
         displayData: [...state.displayData, ...moreData],
@@ -135,7 +136,6 @@ function Venues() {
     new IntersectionObserver(
       (entries) => {
         const observed = entries[0];
-        console.log(observed);
         if (observed.isIntersecting) {
           dispatch({ type: "LOAD-MORE" });
         }
@@ -162,8 +162,6 @@ function Venues() {
       }
     };
   }, [element]);
-
-  if (loading) return <h1>LOADING DATA</h1>;
   return (
     <div className={classes.root}>
       <Drawer
@@ -185,7 +183,18 @@ function Venues() {
         style={{ minHeight: "100vh" }}
       >
         <ActionBar />
-        <VenueList venueData={displayData} loadTracer={setElement} />
+        <TagBar />
+        {loading ? (
+          <LoadingVenues />
+        ) : (
+          <Container disableGutters>
+            <VenueList
+              venueData={displayData}
+              loadTracer={setElement}
+              more={state.more}
+            />
+          </Container>
+        )}
       </Container>
     </div>
   );
