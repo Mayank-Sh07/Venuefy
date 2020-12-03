@@ -38,12 +38,17 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: "250px",
     position: "fixed",
-    top: "92px",
+    top: "82px",
     border: `0.2px solid ${theme.palette.secondary.main}`,
     borderLeft: "none",
     overflow: "hidden",
     [theme.breakpoints.only("xs")]: {
       top: "0px",
+    },
+  },
+  venueListConntainer: {
+    [theme.breakpoints.up("lg")]: {
+      padding: "0px 15px",
     },
   },
 }));
@@ -187,7 +192,10 @@ function Venues() {
         {loading ? (
           <LoadingVenues />
         ) : (
-          <Container disableGutters>
+          <Container
+            disableGutters
+            className={clsx({ [classes.venueListConntainer]: !isFilterOpen })}
+          >
             <VenueList
               venueData={displayData}
               loadTracer={setElement}

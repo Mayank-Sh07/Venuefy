@@ -1,5 +1,3 @@
-$ig-large-screen: 1280px !default;
-$ig-medium-screen: 980px !default;
 $ig-small-screen: 768px !default;
 $ig-xsmall-screen: 480px !default;
 $ig-white: #fff !default;
@@ -133,8 +131,6 @@ $ig-transparent: rgba(0, 0, 0, 0) !default;
   @include vendor-prefix("user-select", none);
   -webkit-tap-highlight-color: $ig-transparent;
   position: relative;
-  height: 100%;
-  width: 100%;
 
   &.fullscreen-modal {
     background: $ig-black;
@@ -158,24 +154,25 @@ $ig-transparent: rgba(0, 0, 0, 0) !default;
   position: relative;
   line-height: 0;
   top: 0;
-  max-height: 100%;
 
   &.fullscreen {
     background: $ig-black;
-    max-height: 100vh !important;
   }
 
   // CHNAGES MADE:
   //   max-height: calc(100vh - 80px); to height: 300px;
   .image-gallery-slide .image-gallery-image {
-    // max-height: 100vh;
-    border-radius: 6px;
+    max-height: 100vh;
+    min-height: 340px;
+    @media (max-width: $ig-xsmall-screen) {
+      min-height: 240px;
+    }
   }
 
   &.left,
   &.right {
     .image-gallery-slide .image-gallery-image {
-      // max-height: 480px;
+      max-height: 100vh;
     }
   }
 }
@@ -217,7 +214,7 @@ $ig-transparent: rgba(0, 0, 0, 0) !default;
 
   .image-gallery-image {
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .image-gallery-description {

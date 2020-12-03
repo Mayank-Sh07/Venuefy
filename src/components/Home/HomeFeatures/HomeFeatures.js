@@ -52,9 +52,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   btnActive: {
+    [theme.breakpoints.up("sm")]: {
+      padding: `10px 18px`,
+      minWidth: "190px",
+      transform: `translateX(10px)`,
+      border: "1.5px solid white",
+    },
     backgroundColor: theme.palette.primary.dark,
     color: "#FFFFFF",
-    padding: "12px 18px",
   },
   floating: {
     marginLeft: "8%",
@@ -151,7 +156,7 @@ function HomeFeatures() {
   };
 
   return (
-    <Container disableGutters id='feature-container'>
+    <Container disableGutters id='feature-container' maxWidth='md'>
       <Paper className={classes.featurePaper} elevation={12}>
         <Grid
           container
@@ -189,7 +194,7 @@ function HomeFeatures() {
               </Grid>
               <Grid item>
                 <Button className={btnClasses(4)} onClick={() => setIndx(4)}>
-                  Choice
+                  Right Choice
                 </Button>
               </Grid>
             </Grid>
@@ -210,7 +215,7 @@ function HomeFeatures() {
                 component='img'
                 alt='null image'
                 image={data[index].image}
-                height='340px'
+                height='300px'
                 className={clsx(classes.rounded, classes.floating)}
               />
             </Card>

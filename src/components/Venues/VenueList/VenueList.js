@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
   imageCarousel: {
     overflow: "hidden",
+    [theme.breakpoints.up("lg")]: {
+      padding: "0px 15px",
+    },
   },
   divider: {
     height: "3px",
@@ -33,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     [theme.breakpoints.only("xs")]: {
       padding: "0px",
+    },
+    [theme.breakpoints.up("lg")]: {
+      paddingRight: "30px",
+      paddingLeft: "20px",
     },
   },
   venueDetailCard: {
@@ -125,18 +132,23 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   fieldSet: {
-    display: "flex",
-    alignItems: "center",
     paddingLeft: 0,
     border: "none",
+    fontWeight: "500",
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "1.125rem ",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "1rem ",
+    },
     [theme.breakpoints.only("xs")]: {
       fontSize: "0.9rem !important",
     },
   },
-  price: {
-    [theme.breakpoints.only("xs")]: {
-      fontSize: "0.9rem ",
-    },
+  rating: {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "8px",
   },
 }));
 
@@ -185,7 +197,7 @@ function VenueList({ venueData, loadTracer, more }) {
                 subheaderTypographyProps={{ className: classes.venueArea }}
                 action={
                   <IconButton>
-                    <Favorite style={{ color: "red" }} />
+                    <Favorite style={{ color: "red" }} color='primary' />
                   </IconButton>
                 }
                 className={classes.header}
@@ -230,18 +242,18 @@ function VenueList({ venueData, loadTracer, more }) {
               </div>
               <CardContent className={classes.bottomContent}>
                 <Box component='fieldset' className={classes.fieldSet}>
-                  <b>{"Rating  :  "}</b>
-                  <Rating
-                    value={4}
-                    readOnly
-                    classes={{ iconEmpty: classes.iconEmpty }}
-                    size='small'
-                    style={{ marginLeft: "8px" }}
-                  />
+                  <div className={classes.rating}>
+                    {"Rated  "}
+                    <Rating
+                      value={4}
+                      readOnly
+                      classes={{ iconEmpty: classes.iconEmpty }}
+                      style={{ margin: "0px 8px" }}
+                    />
+                    {"from 1234 reviews"}
+                  </div>
+                  {`Starting from ₹${venue.starting_price}`} per person
                 </Box>
-                <Typography className={classes.price}>
-                  <b>{`Starting from ₹${venue.starting_price}`}</b> per person
-                </Typography>
               </CardContent>
             </Card>
             <div className={classes.venueActions}>

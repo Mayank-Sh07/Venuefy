@@ -14,7 +14,7 @@ import WhatsApp from "@material-ui/icons/WhatsApp";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    minHeight: 88,
+    minHeight: 82,
   },
   menuButton: {
     marginRight: theme.spacing(1.5),
@@ -91,7 +91,7 @@ export default function Header({ currentPath }) {
             </Button>
           </a>
         </div>
-        <Toolbar>
+        <Toolbar style={{ minHeight: "52px" }}>
           <div className={classes.title}>
             <img src={logo} alt='Venuefy' width='160px' height='50px' />
           </div>

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   taglineContainer: {
     backgroundImage: `url(${background})`,
     position: "absolute",
-    top: "120px",
+    top: "110px",
     height: "500px",
     backgroundSize: "cover",
     backgroundPosition: "center",
