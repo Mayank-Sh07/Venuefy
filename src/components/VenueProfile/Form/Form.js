@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down("xs")]: {
       order: 3,
+      margin: "12px auto",
+      transform: `translateY(0px)`,
+      minHeight: 360,
     },
   },
   formItem: {

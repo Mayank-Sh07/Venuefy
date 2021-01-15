@@ -23,22 +23,16 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   tab: {
-    fontSize: "1.25em",
+    fontSize: "1.125em",
     textTransform: "none",
+    minWidth: 0,
     [theme.breakpoints.only("sm")]: {
-      minWidth: theme.spacing(11),
-      width: theme.spacing(11),
       fontSize: "0.75em",
     },
     [theme.breakpoints.only("md")]: {
-      minWidth: theme.spacing(15),
-      width: theme.spacing(15),
-      fontSize: "1em",
+      fontSize: "0.9em",
     },
-    [theme.breakpoints.up("lg")]: {
-      minWidth: theme.spacing(18),
-      width: theme.spacing(18),
-    },
+    [theme.breakpoints.up("lg")]: {},
   },
   indicator: {
     height: "4px",
@@ -49,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     padding: "0px 15px 8px",
     height: "20px",
+    transform: `translateY(-8px)`,
   },
   selected: {
     fontWeight: "600",
@@ -93,7 +88,15 @@ export default function Header({ currentPath }) {
         </div>
         <Toolbar style={{ minHeight: "52px" }}>
           <div className={classes.title}>
-            <img src={logo} alt='Venuefy' width='160px' height='50px' />
+            <img
+              src={logo}
+              alt='Venuefy'
+              style={{
+                width: "160px",
+                height: "50px",
+                transform: "translateY(-12px)",
+              }}
+            />
           </div>
           <Tabs
             value={currentPath}
@@ -112,7 +115,7 @@ export default function Header({ currentPath }) {
               value='/Venues'
               classes={{ root: classes.tab, selected: classes.selected }}
             />
-
+            {/* 
             <Tab
               label='Vendors'
               value='/Vendors'
@@ -122,7 +125,7 @@ export default function Header({ currentPath }) {
               label='Testimonials'
               value='/Testimonials'
               classes={{ root: classes.tab, selected: classes.selected }}
-            />
+            /> */}
             <Tab
               label='About Us'
               value='/About'

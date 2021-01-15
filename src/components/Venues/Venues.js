@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -101,6 +102,17 @@ const setPhotoURLs = (baseURL, size) => {
 
 const FetchData = async (dispatch) => {
   try {
+    // axios({
+    //   method: "POST",
+    //   url: "/filter",
+    //   data: {
+    //     city: "Kolkata",
+    //     filter: "nan",
+    //   },
+    //   baseURL: "http://52.66.205.172:8080",
+    // })
+    //   .then((res) => {
+    //     const venueData = res.data.table.map((venue) => ({
     const JsonData = await fetch("venueData.json", {
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +124,10 @@ const FetchData = async (dispatch) => {
       ...venue,
       photos: setPhotoURLs(venue.photos, venue.nphotos),
     }));
+    console.log(venueData);
     dispatch({ type: "FETCH-SUCCESS", payload: venueData });
+    // })
+    // .catch((err) => console.log(err));
   } catch (error) {
     dispatch({ type: "FETCH-ERROR" });
   } finally {

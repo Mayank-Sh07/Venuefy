@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   ImageGalleryContainer: {
     order: 1,
     padding: theme.spacing(0, 1),
+    [theme.breakpoints.only("xs")]: {
+      paddingTop: "8px",
+    },
   },
   formContainer: {
     order: 2,
@@ -37,10 +40,16 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.only("xs")]: {
       order: 2,
+      transform: `translateY(0px)`,
     },
   },
   iconEmpty: {
     color: `rgba(0,0,0,0.35)`,
+  },
+  cardHeader: {
+    [theme.breakpoints.only("xs")]: {
+      padding: "8px",
+    },
   },
   header: {
     color: "black",
@@ -54,6 +63,22 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.only("sm")]: {
       maxWidth: "620px",
       fontSize: "20px",
+    },
+    [theme.breakpoints.only("xs")]: {
+      maxWidth: "300px",
+      fontSize: "18px",
+    },
+  },
+  headerRating: {
+    margin: "0px 10px",
+    [theme.breakpoints.only("xs")]: {
+      margin: "0px 2px",
+      fontSize: "0.55rem",
+    },
+  },
+  areaName: {
+    [theme.breakpoints.only("xs")]: {
+      fontSize: "0.5rem",
     },
   },
   reviewSection: {
@@ -71,6 +96,9 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     padding: "5px 24px",
+    [theme.breakpoints.only("xs")]: {
+      padding: "2px 9px",
+    },
   },
   descriptionText: {
     fontSize: "0.8rem",
@@ -154,6 +182,7 @@ export default function VenueProfile() {
               >
                 <Grid item xs={12}>
                   <CardHeader
+                    classes={{ root: classes.cardHeader }}
                     disableTypography
                     title={
                       <div
@@ -172,15 +201,16 @@ export default function VenueProfile() {
                           classes={{
                             iconEmpty: classes.iconEmpty,
                           }}
-                          style={{ margin: "0px 10px" }}
                           size={smDown ? "small" : "medium"}
+                          className={classes.headerRating}
                         />
                       </div>
                     }
                     subheader={
                       <Typography
-                        style={{ marginLeft: "6px" }}
+                        style={{ marginLeft: "3px" }}
                         variant={smDown ? "caption" : "subtitle1"}
+                        className={classes.areaName}
                       >
                         chennai, Kolkata, Mumbai,
                       </Typography>
