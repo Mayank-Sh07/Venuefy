@@ -169,19 +169,22 @@ const venueData = [
     name: "Jayantha Banquets",
     area: "salt lake",
     vcode: "#1234",
-    photoURL: "imgs/card-profile1-square.jpg",
+    photoURL:
+      "https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/3/2017/10/24125649/unique-event-venue-ideas.jpg",
   },
   {
     name: "Altair Banquets",
     area: "Gopal Nagar",
     vcode: "#3456",
-    photoURL: "imgs/card-profile2-square.jpg",
+    photoURL:
+      "https://chinchincelebration.com/wp-content/uploads/2018/05/Choosing-the-right-venue-for-your-company-event-compressor.jpg",
   },
   {
     name: "Holiday Inn",
     area: "New Kolkata",
     vcode: "#5674",
-    photoURL: "imgs/card-profile4-square.jpg",
+    photoURL:
+      "https://static.businessworld.in/article/article_extra_large_image/1595596438_jbp6wz_venue_image_1_.jpg",
   },
 ];
 

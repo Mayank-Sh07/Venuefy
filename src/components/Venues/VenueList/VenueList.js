@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -154,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
 
 function VenueList({ venueData, loadTracer, more }) {
   const classes = useStyles();
+  const history = useHistory();
 
   if (venueData === [] || venueData.length === 0) {
     return <h1>Loading...</h1>;
@@ -261,6 +263,9 @@ function VenueList({ venueData, loadTracer, more }) {
                 color='primary'
                 variant='contained'
                 className={classes.actionBtn}
+                onClick={() => {
+                  history.push(`/Venues/${venue.vcode}`);
+                }}
               >
                 View Details
               </Button>

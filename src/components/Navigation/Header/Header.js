@@ -127,7 +127,7 @@ export default function Header({ currentPath }) {
               classes={{ root: classes.tab, selected: classes.selected }}
             /> */}
             <Tab
-              label='About Us'
+              label='About'
               value='/About'
               classes={{ root: classes.tab, selected: classes.selected }}
             />

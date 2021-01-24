@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: `0px 3px 0px -6px rgba(255,255,255,0.2), 0px 0px 10px 1px rgba(255,255,255,0.14), 0px -1px 6px 3px rgba(255,255,255,0.12)`,
     maxHeight: "48px",
   },
+  strBtn: {
+    borderTopLeftRadius: "2em",
+    borderBottomLeftRadius: "2em",
+  },
   BNAroot: {
     minWidth: "64px",
   },
@@ -97,7 +101,10 @@ export default function HeaderMobile({ currentPath }) {
               value='/'
               label='Home'
               icon={<Home />}
-              classes={{ selected: classes.selectedBottom }}
+              classes={{
+                selected: classes.selectedBottom,
+                root: classes.strBtn,
+              }}
             />
             <Divider
               orientation='vertical'
@@ -157,22 +164,6 @@ export default function HeaderMobile({ currentPath }) {
               <img src={logo} alt='Venuefy' height='35px' width='110px' />
             </div>
             <BottomNavigation showLabels={true} style={{ height: "unset" }}>
-              <BottomNavigationAction
-                label='Testimonials'
-                icon={
-                  <AccountCircle
-                    style={{
-                      color: "white",
-                      fontSize: "18px",
-                    }}
-                  />
-                }
-                classes={{
-                  root: classes.tinyButtons,
-                  label: classes.tinyLabel,
-                }}
-                onClick={() => history.push("/Testimonials")}
-              />
               <a href='tel:+919007967777' style={{ textDecoration: "none" }}>
                 <BottomNavigationAction
                   label='Call Us'
